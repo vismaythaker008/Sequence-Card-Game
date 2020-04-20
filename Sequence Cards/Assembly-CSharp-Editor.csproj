@@ -57,40 +57,40 @@
   <ItemGroup>
      <Compile Include="Assets\JMO Assets\Cartoon FX Easy Editor\Editor\CFXEasyEditor.cs" />
  <Reference Include="UnityEditor.TestRunner">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>D:/professional/unity hub/2019.2.0f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -291,16 +291,16 @@
  <HintPath>D:/professional/unity hub/2019.2.0f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>D:/professional/unity projects/Sequence Cards/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTweenEditor">
- <HintPath>D:/professional/unity projects/Sequence Cards/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
  <Reference Include="JMOAssets_CartoonFXFreeWelcome">
- <HintPath>D:/professional/unity projects/Sequence Cards/Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>D:/professional/unity projects/Sequence Cards/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>D:/professional/Git Projects/Sequence Card Game/Sequence-Card-Game/Sequence Cards/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>D:/professional/unity hub/2019.2.0f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

@@ -125,16 +125,18 @@ public class AI : MonoBehaviour
     {
         float elapsedTime = 0;
         float waitTime = 1.5f;
+        Vector3 newPosition = MatrixOfOwnCards[index].Card.transform.position;
+        newPosition.y += 1f;
         while (elapsedTime < waitTime)
         {
-            transform.position = Vector3.Lerp(chip.transform.position, MatrixOfOwnCards[index].Card.transform.position, (elapsedTime / waitTime));
+            chip.transform.position = Vector3.Lerp(chip.transform.position, newPosition, (elapsedTime / waitTime));
             elapsedTime += Time.deltaTime;
 
             // Yield here
             yield return null;
         }
         // Make sure we got there
-        transform.position = MatrixOfOwnCards[index].Card.transform.position;
+        chip.transform.position = newPosition;
         yield return null;
     }
     public int BreakOtherPlayersPairs()
