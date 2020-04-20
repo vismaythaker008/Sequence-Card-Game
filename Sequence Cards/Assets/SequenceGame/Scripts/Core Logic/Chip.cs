@@ -54,7 +54,7 @@ public class Chip : MonoBehaviour
         }
         else
         {
-            SwipeDetection.initialPosition += IntialPosition;
+            SwipeDetection.initialPosition -= IntialPosition;
             SwipeDetection.finalPosition -= FinalPosition;
         }
         //SwipeDetection.CurveSwipe += CurveSwipeForceDirection;
@@ -67,6 +67,7 @@ public class Chip : MonoBehaviour
     {
         if (putChip && !setChip)
         {
+            Debug.Log("initial position");
             float planeY = 0;
 
             Plane plane = new Plane(Vector3.up, Vector3.up * planeY); // ground plane
@@ -86,8 +87,10 @@ public class Chip : MonoBehaviour
     }
     public void FinalPosition()
     {
+
         if (putChip && !setChip)
         {
+            Debug.Log("final     position");
             RaycastHit hit;
             // Debug.Log("final");
             Vector3 fwd = transform.TransformDirection(Vector3.down);
@@ -104,7 +107,9 @@ public class Chip : MonoBehaviour
                     transform.localPosition = new Vector3(transform.localPosition.x, -3.2f, transform.localPosition.z);
                     GetComponentInParent<ManageChip>().chipCount--;
                     setChip = true;
+                    Debug.Log("chip kept" + player.selectedChip);
                     player.selectedChip = null;
+                    Debug.Log("chip kept" + player.selectedChip);
                     player.changeCard(hit.collider.gameObject);
                     GameManagerScript.instance.endRound();
                     player.CardsGlow("all", true);

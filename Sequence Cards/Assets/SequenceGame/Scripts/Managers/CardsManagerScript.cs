@@ -8,7 +8,6 @@ public class CardsManagerScript : MonoBehaviour
 {
     public static CardsManagerScript instance;
     public MatrixOfCards[] GridMatrixOfTotalDisplayCards;
-    public int[,] ScoreOfCards;
 
     public delegate void TotalCardCountFound();
 
@@ -26,21 +25,7 @@ public class CardsManagerScript : MonoBehaviour
     void Awake()
     {
         instance = this;
-        ScoreOfCards = new int[10, 10];
-        // Debug.Log(ScoreOfCards.Length);
-        for (int i = 0; i < 10; i++)
-        {
-            // ScoreOfCards[i] = new int[10];
-            for (int j = 0; j < 10; j++)
-            {
-                ScoreOfCards[i, j] = -1;
-                // Debug.Log("i,j=" + i + "," + j + " =" + ScoreOfCards[i, j]);
-            }
-        }
-        ScoreOfCards[0, 0] = -2;
-        ScoreOfCards[9, 0] = -2;
-        ScoreOfCards[0, 9] = -2;
-        ScoreOfCards[9, 9] = -2;
+
     }
 
     public void setPlayerCount(int count)

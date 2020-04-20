@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>D:\professional\unity hub\2019.2.0f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -98,6 +96,7 @@
      <Compile Include="Assets\SequenceGame\Scripts\Managers\GameManagerScript.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Managers\GameStateManager.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Managers\ModeManager.cs" />
+     <Compile Include="Assets\SequenceGame\Scripts\Managers\ScoreManagerScript.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Managers\UIAnimationManager.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Managers\UIManager.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Mixed\ConstantString.cs" />

@@ -7,6 +7,7 @@ public class ManageChip : MonoBehaviour
     public int chipCount = 0;
     private int totalChipCount;
     private string tagForChip;
+    private int chipChildIndex = -1;
 
     void Start()
     {
@@ -26,7 +27,9 @@ public class ManageChip : MonoBehaviour
     }
     public GameObject getChip()
     {
-        return transform.GetChild(0).gameObject;
+        chipChildIndex++;
+        chipCount--;
+        return transform.GetChild(chipChildIndex).gameObject;
     }
     IEnumerator ManageChips()
     {

@@ -121,14 +121,11 @@ public class Player : MonoBehaviour
                 // material = card.GetComponent<MeshRenderer>().material;
                 // material.SetFloat("_SmoothnessTextureChannel", 0.5f);
             }
-            if (hit.collider.CompareTag(chipTag))
+            if (hit.collider.CompareTag(chipTag) && selectedChip == null)
             {
-                Debug.Log(selectedChip);
-                if (selectedChip == null)
-                {
-                    selectedChip = hit.collider.gameObject;
-                    selectedChip.GetComponent<Chip>().putChip = true;
-                }
+
+                selectedChip = hit.collider.gameObject;
+                selectedChip.GetComponent<Chip>().putChip = true;
             }
         }
     }

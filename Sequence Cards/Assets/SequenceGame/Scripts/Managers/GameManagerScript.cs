@@ -63,7 +63,7 @@ public class GameManagerScript : MonoBehaviour
                     yield return null;
                 }
 
-
+                ScoreManagerScript.instance.CheckScore();
                 Timer = 60f;
             }
             yield return null;
@@ -73,7 +73,9 @@ public class GameManagerScript : MonoBehaviour
     {
 
         Timer = 0;
+
     }
+
     public void startGame()
     {
         startingPlayerIndex = Random.Range(0, PlayerCount);
