@@ -1,0 +1,235 @@
+fileFormatVersion: 2
+guid: 17afc1455ac44de4eacc1a60d4742571
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Chip_1
+    100002: Chip_2
+    100004: Chip_3
+    100006: Chip_49
+    100008: Chip_4_Instanz_1_Chip_48
+    100010: Chip_4_Instanz_2_Chip_47
+    100012: Chip_4_Instanz_3_Chip_46
+    100014: Chip_4_Instanz_4_Chip_45
+    100016: Chip_4_Instanz_5_Chip_44
+    100018: Chip_4_Instanz_6_Chip_43
+    100020: Chip_4_Instanz_7_Chip_42
+    100022: Chip_4_Instanz_8_Chip_41
+    100024: Chip_4_Instanz_9_Chip_4
+    100026: //RootNode
+    100028: Zylinder_Ref
+    400000: Chip_1
+    400002: Chip_2
+    400004: Chip_3
+    400006: Chip_49
+    400008: Chip_4_Instanz_1_Chip_48
+    400010: Chip_4_Instanz_2_Chip_47
+    400012: Chip_4_Instanz_3_Chip_46
+    400014: Chip_4_Instanz_4_Chip_45
+    400016: Chip_4_Instanz_5_Chip_44
+    400018: Chip_4_Instanz_6_Chip_43
+    400020: Chip_4_Instanz_7_Chip_42
+    400022: Chip_4_Instanz_8_Chip_41
+    400024: Chip_4_Instanz_9_Chip_4
+    400026: //RootNode
+    400028: Zylinder_Ref
+    2300000: Chip_1
+    2300002: Chip_2
+    2300004: Chip_3
+    2300006: Chip_49
+    2300008: Chip_4_Instanz_1_Chip_48
+    2300010: Chip_4_Instanz_2_Chip_47
+    2300012: Chip_4_Instanz_3_Chip_46
+    2300014: Chip_4_Instanz_4_Chip_45
+    2300016: Chip_4_Instanz_5_Chip_44
+    2300018: Chip_4_Instanz_6_Chip_43
+    2300020: Chip_4_Instanz_7_Chip_42
+    2300022: Chip_4_Instanz_8_Chip_41
+    2300024: Chip_4_Instanz_9_Chip_4
+    2300026: Zylinder_Ref
+    3300000: Chip_1
+    3300002: Chip_2
+    3300004: Chip_3
+    3300006: Chip_49
+    3300008: Chip_4_Instanz_1_Chip_48
+    3300010: Chip_4_Instanz_2_Chip_47
+    3300012: Chip_4_Instanz_3_Chip_46
+    3300014: Chip_4_Instanz_4_Chip_45
+    3300016: Chip_4_Instanz_5_Chip_44
+    3300018: Chip_4_Instanz_6_Chip_43
+    3300020: Chip_4_Instanz_7_Chip_42
+    3300022: Chip_4_Instanz_8_Chip_41
+    3300024: Chip_4_Instanz_9_Chip_4
+    3300026: Zylinder_Ref
+    4300000: Chip_1
+    4300002: Chip_2
+    4300004: Chip_3
+    4300006: Chip_49
+    4300008: Chip_4_Instanz_1_Chip_48
+    4300010: Chip_4_Instanz_2_Chip_47
+    4300012: Chip_4_Instanz_3_Chip_46
+    4300014: Chip_4_Instanz_4_Chip_45
+    4300016: Chip_4_Instanz_5_Chip_44
+    4300018: Chip_4_Instanz_6_Chip_43
+    4300020: Chip_4_Instanz_7_Chip_42
+    4300022: Chip_4_Instanz_8_Chip_41
+    4300024: Chip_4_Instanz_9_Chip_4
+    4300026: Zylinder_Ref
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_1Mat
+    second: {fileID: 2100000, guid: 37104099cde10b54dab568f564a75c82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_2Mat
+    second: {fileID: 2100000, guid: 6237243e57c5ab14d982bba274ec2c65, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_3Mat
+    second: {fileID: 2100000, guid: de862132432bca14d976aa4029a3add1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_49Mat
+    second: {fileID: 2100000, guid: 593788909389c264fa9778b45da7310a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_1_Chip_48Mat
+    second: {fileID: 2100000, guid: cf4e23c53f2b5f84c863f3dd75408427, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_2_Chip_47Mat
+    second: {fileID: 2100000, guid: 82d9308641626c24e9997ccde76879ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_3_Chip_46Mat
+    second: {fileID: 2100000, guid: 3553da8b33a24e14897ba3f8a55a7608, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_4_Chip_45Mat
+    second: {fileID: 2100000, guid: 8d5c2ff7d5f2ab145b0dbaecf2af7487, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_5_Chip_44Mat
+    second: {fileID: 2100000, guid: 060793ec63488e344a15293e7152a5dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_6_Chip_43Mat
+    second: {fileID: 2100000, guid: 267acbb7a5941cc4cb6f1cc464b24b26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_7_Chip_42Mat
+    second: {fileID: 2100000, guid: 983055529b00f1b41a520e191d75b42d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_8_Chip_41Mat
+    second: {fileID: 2100000, guid: 27a3c8b60f142dd4ebc4a0d5d18f657c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chip_4_Instanz_9_Chip_4Mat
+    second: {fileID: 2100000, guid: b54a7e7b6cee7e344a396cc4a6a824a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zylinder_RefMat
+    second: {fileID: 2100000, guid: b6df0e3bd6e009548abe8556d119a7f0, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
