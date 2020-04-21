@@ -7,8 +7,9 @@ public class Chip : MonoBehaviour
 {
     public bool putChip = false;
     public bool setChip = false;
-    private Dictionary<int, GameObject> playerCards;
+
     private Player player;
+
     private Vector3 initialPosition = Vector3.zero;
 
     // void Start()
@@ -23,8 +24,19 @@ public class Chip : MonoBehaviour
         if (initialPosition == Vector3.zero)
         {
             initialPosition = transform.position;
-            player = GameObject.Find("Player").GetComponent<Player>();
-            playerCards = player.Cards;
+            if (GetComponentInParent<Player>() != null)
+            {
+                player = GetComponentInParent<Player>();
+
+            }
+            else
+                player = null;
+            if (player != null && player.playerIndex == GameManagerScript.instance.curentPlayerIndex)
+            {
+                SwipeDetection.initialPosition += IntialPosition;
+                SwipeDetection.finalPosition += FinalPosition;
+            }
+            // player = GameObject.Find("Player").GetComponent<Player>();
 
         }
     }
@@ -46,16 +58,21 @@ public class Chip : MonoBehaviour
         if (currentGameState == GameState.GamePlay)
         {
 
+
             // Debug.Log("player cards count " + playerCards.Count);
             // Debug.Log("called"); 
-            SwipeDetection.initialPosition += IntialPosition;
-            SwipeDetection.finalPosition += FinalPosition;
-
         }
         else
         {
-            SwipeDetection.initialPosition -= IntialPosition;
-            SwipeDetection.finalPosition -= FinalPosition;
+
+            if (player != null && player.playerIndex == GameManagerScript.instance.curentPlayerIndex)
+            {
+                SwipeDetection.initialPosition -= IntialPosition;
+                SwipeDetection.finalPosition -= FinalPosition;
+            }
+
+
+
         }
         //SwipeDetection.CurveSwipe += CurveSwipeForceDirection;
         //test.Swipes += SwipeForceDirection;
@@ -65,9 +82,12 @@ public class Chip : MonoBehaviour
 
     public void IntialPosition(Vector3 Position)
     {
+
+        // Debug.Log(gameObject.name + " : whole equation" + (putChip && !setChip) + " put chip " + putChip + " set chip " + setChip);
+
         if (putChip && !setChip)
         {
-            Debug.Log("initial position");
+            // Debug.Log("initial position");
             float planeY = 0;
 
             Plane plane = new Plane(Vector3.up, Vector3.up * planeY); // ground plane
@@ -90,7 +110,7 @@ public class Chip : MonoBehaviour
 
         if (putChip && !setChip)
         {
-            Debug.Log("final     position");
+            // Debug.Log("final     position");
             RaycastHit hit;
             // Debug.Log("final");
             Vector3 fwd = transform.TransformDirection(Vector3.down);
@@ -98,7 +118,7 @@ public class Chip : MonoBehaviour
             if (Physics.Raycast(transform.position, fwd, out hit, 50))
             {
                 Debug.Log(hit.collider.name);
-                if (hit.collider.CompareTag(ConstantString.TagForDisplayCards) && checkIfCardExist(hit.collider.name))
+                if (hit.collider.CompareTag(ConstantString.TagForDisplayCards) && player.checkIfCardExist(hit.collider.gameObject))
                 {
                     Debug.Log(hit.collider.transform.position);
                     Debug.Log("inside if");
@@ -112,6 +132,7 @@ public class Chip : MonoBehaviour
                     Debug.Log("chip kept" + player.selectedChip);
                     player.changeCard(hit.collider.gameObject);
                     GameManagerScript.instance.endRound();
+                    //                    ScoreManagerScript.instance.updateScore(hit.collider.gameObject);
                     player.CardsGlow("all", true);
                 }
                 else
@@ -127,16 +148,5 @@ public class Chip : MonoBehaviour
 
 
     }
-    bool checkIfCardExist(string name)
-    {
-        foreach (var item in playerCards)
-        {
-            if (item.Value.name == name)
-            {
-                return true;
-            }
 
-        }
-        return false;
-    }
 }

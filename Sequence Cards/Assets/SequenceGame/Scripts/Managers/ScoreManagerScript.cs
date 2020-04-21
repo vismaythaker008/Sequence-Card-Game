@@ -8,12 +8,14 @@ using SequenceCardGame;
 public class ScoreManagerScript : MonoBehaviour
 {
     public static ScoreManagerScript instance;
+    public List<MatrixOfCards> GridMatrixOfTotalDisplayCards;
     public int[,] ScoreOfCards;
     public int[,] indexOfSequencedCards;
     private SolutionInfo solutionInfo;
 
-    void start()
+    void Awake()
     {
+        //        GridMatrixOfTotalDisplayCards = new List<MatrixOfCards>(CardsManagerScript.instance.GridMatrixOfTotalDisplayCards);
         instance = this;
         ScoreOfCards = new int[10, 10];
         // Debug.Log(ScoreOfCards.Length);
@@ -46,6 +48,12 @@ public class ScoreManagerScript : MonoBehaviour
             }
 
         }
+    }
+    public void updateScore(GameObject Card)
+    {
+        int value = GameManagerScript.instance.curentPlayerIndex;
+        MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card == Card);
+        ScoreOfCards[grid.row, grid.column] = value;
     }
 
 

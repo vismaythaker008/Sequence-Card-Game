@@ -12,6 +12,8 @@ public class SwipeDetection : MonoBehaviour
     public static InitialPosition initialPosition;
     public delegate void FinalPosition();
     public static FinalPosition finalPosition;
+    bool isMouseButtonDown;
+
 
 
 
@@ -47,7 +49,11 @@ public class SwipeDetection : MonoBehaviour
     void MouseInputs()
     {
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
+        {
+            isMouseButtonDown = true;
+        }
+        if (isMouseButtonDown)
         {
             if (initialPosition != null)
             {
@@ -57,6 +63,7 @@ public class SwipeDetection : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
+            isMouseButtonDown = false;
             if (finalPosition != null)
             {
                 finalPosition();

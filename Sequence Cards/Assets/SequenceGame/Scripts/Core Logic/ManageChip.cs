@@ -7,6 +7,7 @@ public class ManageChip : MonoBehaviour
     public int chipCount = 0;
     private int totalChipCount;
     private string tagForChip;
+    private int uniqueIndex = 0;
     private int chipChildIndex = -1;
 
     void Start()
@@ -52,7 +53,10 @@ public class ManageChip : MonoBehaviour
         {
             if (chipCount < totalChipCount)
             {
-                Instantiate(Chip, transform.position, Quaternion.identity, transform).tag = tagForChip;
+                GameObject chip = Instantiate(Chip, transform.position, Quaternion.identity, transform);
+                chip.tag = tagForChip;
+                chip.name = Chip.name + uniqueIndex;
+                uniqueIndex++;
                 chipCount++;
             }
             yield return new WaitForSeconds(0.3f);

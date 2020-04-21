@@ -74,7 +74,8 @@ static class Solution
             {
                 count++;
                 len = Mathf.Max(len, count);
-                solutionInfo.data.Add(new RowColumnInfo(row, col));
+                RowColumnInfo rowColumnInfo = new RowColumnInfo(row, col);
+                solutionInfo.data.Add(rowColumnInfo);
                 solutionInfo.length = len;
             }
             else
@@ -90,7 +91,7 @@ static class Solution
 public class SolutionInfo
 {
     public int length;
-    public List<RowColumnInfo> data;
+    public List<RowColumnInfo> data = new List<RowColumnInfo>();
 }
 
 [System.Serializable]

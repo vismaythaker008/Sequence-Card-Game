@@ -13,18 +13,20 @@ public class Player : MonoBehaviour
     private Coroutine Play;
     private Coroutine ManageCards;
     public GameObject selectedChip = null;
+    public List<MatrixOfCards> MatrixOfOwnCards;
     private Material material;
     private Coroutine RaycastToCards;
     private string selectedCardName = null;
     public int CardCount = 0;
     public int TotalCardCount;
     public int playerIndex;
+    public List<MatrixOfCards> GridMatrixOfTotalDisplayCards;
     public string chipTag;
 
 
     void OnEnable()
     {
-
+        GridMatrixOfTotalDisplayCards = new List<MatrixOfCards>(CardsManagerScript.instance.GridMatrixOfTotalDisplayCards);
         CardsManagerScript.OnTotalCardFound += setTotalCardCount;
         GameManagerScript.TurnChanged += startGame;
     }
@@ -52,9 +54,49 @@ public class Player : MonoBehaviour
             c.tag = ConstantString.TagForPlayingCards;
             Debug.Log(CardCount);
             Cards.Add(CardCount, c);
+            if (Card.name.Contains("Jack"))
+            {
+                MatrixOfCards matrixOfCards = new MatrixOfCards();
+                matrixOfCards.row = 100;
+                matrixOfCards.column = 100;
+                matrixOfCards.Card = Card;
+                MatrixOfOwnCards.Add(matrixOfCards);
+
+            }
+            else
+            {
+
+                MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
+
+
+                MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
+
+
+            }
             CardCount++;
         }
         yield return null;
+    }
+    public bool checkIfCardExist(GameObject card)
+    {
+        foreach (var item in GridMatrixOfTotalDisplayCards)
+        {
+            Debug.Log("name " + card.name == item.Card.name);
+            Debug.Log("data " + card.Equals(item.Card));
+        }
+        MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card == card);
+        // Debug.Log(grid.row);
+        // Debug.Log(grid.column);
+        // Debug.Log(grid.Card.name);
+        if (ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column] == -1)
+            return true;
+        else
+            return false;
+
+
+
+
+
     }
     public void changeCard(GameObject card)
     {
@@ -121,12 +163,15 @@ public class Player : MonoBehaviour
                 // material = card.GetComponent<MeshRenderer>().material;
                 // material.SetFloat("_SmoothnessTextureChannel", 0.5f);
             }
-            if (hit.collider.CompareTag(chipTag) && selectedChip == null)
+            else if (selectedChip == null && hit.collider.CompareTag(chipTag))
             {
-
+                Debug.Log("assigned");
                 selectedChip = hit.collider.gameObject;
                 selectedChip.GetComponent<Chip>().putChip = true;
+                //selectedChip.GetComponent<Chip>().setChip = false;
+
             }
+            Debug.Log(selectedChip);
         }
     }
     public void CardsGlow(string name, bool glow)
@@ -194,8 +239,8 @@ public class Player : MonoBehaviour
         Debug.Log("end game Player");
         if (Play != null)
             StopCoroutine(Play);
-        if (selectedChip != null)
-            selectedChip.GetComponent<Chip>().putChip = false;
+        // if (selectedChip != null)
+        //     selectedChip.GetComponent<Chip>().putChip = false;
         if (RaycastToCards != null)
             StopCoroutine(RaycastToCards);
     }
