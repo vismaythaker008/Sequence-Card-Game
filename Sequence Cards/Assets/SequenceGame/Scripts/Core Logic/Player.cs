@@ -42,18 +42,19 @@ public class Player : MonoBehaviour
     }
     IEnumerator ManageCard()
     {
-        Debug.Log("outside while");
-        Debug.Log(TotalCardCount);
+
+        // Debug.Log(TotalCardCount);
         while (CardCount < TotalCardCount)
         {
-            Debug.Log("inside while");
+
             GameObject Card = CardsManagerScript.instance.getCard();
             GameObject c = Instantiate(Card, CardPositions[CardCount]);
             c.name = Card.name;
             c.transform.localScale = Vector3.one * 100f;
             c.tag = ConstantString.TagForPlayingCards;
-            Debug.Log(CardCount);
+            // Debug.Log("card count" + CardCount + " and Card " + c);
             Cards.Add(CardCount, c);
+            // Debug.Log("card count" + CardCount + " and Card  after " + Cards[CardCount]);
             if (Card.name.Contains("Jack"))
             {
                 MatrixOfCards matrixOfCards = new MatrixOfCards();
@@ -79,28 +80,41 @@ public class Player : MonoBehaviour
     }
     public bool checkIfCardExist(GameObject card)
     {
-        foreach (var item in GridMatrixOfTotalDisplayCards)
-        {
-            Debug.Log("name " + card.name == item.Card.name);
-            Debug.Log("data " + card.Equals(item.Card));
-        }
-        MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card == card);
-        // Debug.Log(grid.row);
-        // Debug.Log(grid.column);
-        // Debug.Log(grid.Card.name);
-        if (ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column] == -1)
+        // foreach (var item in GridMatrixOfTotalDisplayCards)
+        // {
+        //     Debug.Log("name " + card.name == item.Card.name);
+        //     Debug.Log("data " + card.Equals(item.Card));
+        // }
+
+        MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card.Equals(card));
+
+        Debug.Log(grid.row);
+        Debug.Log(grid.column);
+        Debug.Log(grid.Card.name);
+        Debug.Log(MatrixOfOwnCards.Contains(grid));
+        Debug.Log(ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column]);
+        if (MatrixOfOwnCards.Contains(grid) && ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column] == -1)
             return true;
         else
             return false;
 
-
-
-
-
     }
     public void changeCard(GameObject card)
     {
-        int cardPositionIndex = Cards.KeyByValue(card);
+        int cardPositionIndex = -1;
+        foreach (var keyvaluepair in Cards)
+        {
+            if (keyvaluepair.Value.name == card.name)
+            {
+                //dict.Remove(keyvaluepair.Key);
+                cardPositionIndex = keyvaluepair.Key;
+                break;
+            }
+        }
+
+
+        Debug.Log(cardPositionIndex);
+        int cardPositionIndexInMatrix;
         Cards.TryGetValue(cardPositionIndex, out GameObject oldCard);
         Destroy(oldCard);
         Cards.Remove(cardPositionIndex);
@@ -112,6 +126,35 @@ public class Player : MonoBehaviour
         c.transform.localScale = Vector3.one * 100f;
         c.tag = ConstantString.TagForPlayingCards;
         Cards.Add(cardPositionIndex, c);
+        if (Card.name.Contains("Jack"))
+        {
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == card.name);
+            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindLastIndex(o => o.Card.name == card.name);
+            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
+            MatrixOfCards matrixOfCard = new MatrixOfCards();
+            matrixOfCard.row = 100;
+            matrixOfCard.column = 100;
+            matrixOfCard.Card = Card;
+            MatrixOfOwnCards.Add(matrixOfCard);
+        }
+        else
+        {
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == card.name);
+            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
+
+            MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
+
+            MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
+            // MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
+            int tempIndex = MatrixOfOwnCards.FindIndex(o => o.Card.name == Card.name);
+            Debug.Log(" index " + tempIndex + " card " + MatrixOfOwnCards[tempIndex].Card + " row " + MatrixOfOwnCards[tempIndex].row + " column " + MatrixOfOwnCards[tempIndex].column);
+
+            // MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
+            tempIndex = MatrixOfOwnCards.FindLastIndex(o => o.Card.name == Card.name);
+            Debug.Log(" index " + tempIndex + " card " + MatrixOfOwnCards[tempIndex].Card + " row " + MatrixOfOwnCards[tempIndex].row + " column " + MatrixOfOwnCards[tempIndex].column);
+
+        }
     }
     IEnumerator RaycastForCards()
     {
@@ -171,7 +214,7 @@ public class Player : MonoBehaviour
                 //selectedChip.GetComponent<Chip>().setChip = false;
 
             }
-            Debug.Log(selectedChip);
+            // Debug.Log(selectedChip);
         }
     }
     public void CardsGlow(string name, bool glow)

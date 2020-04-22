@@ -9,7 +9,7 @@ public class AI : MonoBehaviour
     public GameObject selectedChip;
     private Coroutine PutChip;
     public List<MatrixOfCards> GridMatrixOfTotalDisplayCards;
-    public int[,] ScoreOfCards;
+
     public List<MatrixOfCards> MatrixOfOwnCards;
     public MatrixOfCards[] MatrixOfUsedCards;
 
@@ -111,7 +111,7 @@ public class AI : MonoBehaviour
             do
             {
                 tempIndex = Random.Range(0, MatrixOfOwnCards.Count);
-                if (checkIfPossible(tempIndex) && !MatrixOfOwnCards[tempIndex].Card.name.Contains("Jack"))
+                if (!MatrixOfOwnCards[tempIndex].Card.name.Contains("Jack") && checkIfPossible(tempIndex))
                 {
                     notSelected = false;
                 }
@@ -136,10 +136,11 @@ public class AI : MonoBehaviour
 
         selectedChip = manageChip.getChip();
 
-        Debug.Log(selectedChip);
-        Debug.Log(" put card index " + index + " card " + MatrixOfOwnCards[index].Card + " row " + MatrixOfOwnCards[index].row + " column " + MatrixOfOwnCards[index].column);
+        // Debug.Log(selectedChip);
+        //        Debug.Log(" put card index " + index + " card " + MatrixOfOwnCards[index].Card + " row " + MatrixOfOwnCards[index].row + " column " + MatrixOfOwnCards[index].column);
         PutChip = StartCoroutine(putChip(selectedChip, index));
-        ScoreOfCards[MatrixOfOwnCards[index].row, MatrixOfOwnCards[index].column] = playerIndex;
+        ScoreManagerScript.instance.updateScore(MatrixOfOwnCards[index].Card);
+        //ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[index].row, MatrixOfOwnCards[index].column] = playerIndex;
         changeCard(MatrixOfOwnCards[index].Card);
         GameManagerScript.instance.endRound();
     }
@@ -147,10 +148,7 @@ public class AI : MonoBehaviour
     {
         // int cardPositionIndexInList = Cards.FindIndex(o => o == card);
         int cardPositionIndexInMatrix;
-        cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == card.name);
-        MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
-        cardPositionIndexInMatrix = MatrixOfOwnCards.FindLastIndex(o => o.Card.name == card.name);
-        MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
+
         Cards.Remove(card);
 
 
@@ -160,6 +158,10 @@ public class AI : MonoBehaviour
         Cards.Add(Card);
         if (Card.name.Contains("Jack"))
         {
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == card.name);
+            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindLastIndex(o => o.Card.name == card.name);
+            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
             MatrixOfCards matrixOfCard = new MatrixOfCards();
             matrixOfCard.row = 100;
             matrixOfCard.column = 100;
@@ -168,6 +170,9 @@ public class AI : MonoBehaviour
         }
         else
         {
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == card.name);
+            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
+
             MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
 
             MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
@@ -186,7 +191,7 @@ public class AI : MonoBehaviour
     IEnumerator putChip(GameObject chip, int index)
     {
         float elapsedTime = 0;
-        float waitTime = 1f;
+        float waitTime = 0.3f;
         Vector3 newPosition = MatrixOfOwnCards[index].Card.transform.position;
         newPosition.y += 0.3f;
         while (elapsedTime < waitTime)
@@ -204,23 +209,23 @@ public class AI : MonoBehaviour
     public int BreakOtherPlayersPairs()
     {
         int nearestIndex = -1;
-        ScoreOfCards = ScoreManagerScript.instance.ScoreOfCards;
+
         for (int i = 0; i < MatrixOfOwnCards.Count; i++)
         {
             if (MatrixOfOwnCards[i].row != 100)
             {
-                int temp = ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column];
-                ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column] = 1;
+                int temp = ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column];
+                ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column] = 1;
 
-                if (Solution.longestLine(ScoreOfCards, 1).length == 4)
+                if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, 1).length == 4)
                 {
                     nearestIndex = i;
                 }
-                else if (Solution.longestLine(ScoreOfCards, 1).length == 3)
+                else if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, 1).length == 3)
                 {
                     nearestIndex = i;
                 }
-                else if (Solution.longestLine(ScoreOfCards, 1).length == 2)
+                else if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, 1).length == 2)
                 {
                     nearestIndex = i;
                 }
@@ -228,7 +233,7 @@ public class AI : MonoBehaviour
                 {
                     nearestIndex = -1;
                 }
-                ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column] = temp;
+                ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column] = temp;
             }
         }
         return nearestIndex;

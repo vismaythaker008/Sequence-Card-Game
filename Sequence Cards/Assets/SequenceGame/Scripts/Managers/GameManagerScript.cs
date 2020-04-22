@@ -79,7 +79,7 @@ public class GameManagerScript : MonoBehaviour
     public void startGame()
     {
         startingPlayerIndex = Random.Range(0, PlayerCount);
-        Debug.Log(startingPlayerIndex);
+        Debug.Log("startingPlayerIndex : " + startingPlayerIndex);
         Utilities.WaitAsync(1200, () => { PlayGame = StartCoroutine(play()); });
 
     }

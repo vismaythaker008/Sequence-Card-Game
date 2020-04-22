@@ -8,6 +8,7 @@ using SequenceCardGame;
 public class ScoreManagerScript : MonoBehaviour
 {
     public static ScoreManagerScript instance;
+    public GameObject LinePrefab;
     public List<MatrixOfCards> GridMatrixOfTotalDisplayCards;
     public int[,] ScoreOfCards;
     public int[,] indexOfSequencedCards;
@@ -15,7 +16,7 @@ public class ScoreManagerScript : MonoBehaviour
 
     void Awake()
     {
-        //        GridMatrixOfTotalDisplayCards = new List<MatrixOfCards>(CardsManagerScript.instance.GridMatrixOfTotalDisplayCards);
+
         instance = this;
         ScoreOfCards = new int[10, 10];
         // Debug.Log(ScoreOfCards.Length);
@@ -33,18 +34,36 @@ public class ScoreManagerScript : MonoBehaviour
         ScoreOfCards[0, 9] = -2;
         ScoreOfCards[9, 9] = -2;
     }
+    void Start()
+    {
+
+        GridMatrixOfTotalDisplayCards = new List<MatrixOfCards>(CardsManagerScript.instance.GridMatrixOfTotalDisplayCards);
+
+    }
     public void CheckScore()
     {
         for (int i = 0; i < GameManagerScript.instance.PlayerCount; i++)
         {
             solutionInfo = Solution.longestLine(ScoreOfCards, i);
-
-            Debug.Log("for player " + i + 1);
+            List<Vector3> positionsForLine = new List<Vector3>();
+            Debug.Log("for player " + (i + 1));
             Debug.Log("length " + solutionInfo.length);
+            Debug.Log("data count " + solutionInfo.data.Count);
             for (int j = 0; j < solutionInfo.data.Count; j++)
             {
                 Debug.Log("row " + solutionInfo.data[j].row);
-                Debug.Log("row " + solutionInfo.data[j].column);
+                Debug.Log("column " + solutionInfo.data[j].column);
+                positionsForLine.Add((GridMatrixOfTotalDisplayCards.Find(o => o.row == solutionInfo.data[j].row && o.column == solutionInfo.data[j].column).Card.transform.position));
+            }
+            if (solutionInfo.length == 5)
+            {
+                LineRenderer lineRenderer = Instantiate(LinePrefab, transform).GetComponent<LineRenderer>();
+                lineRenderer.SetPositions(positionsForLine.ToArray());
+            }
+            else if (solutionInfo.length >= 5)
+            {
+                LineRenderer lineRenderer = Instantiate(LinePrefab, transform).GetComponent<LineRenderer>();
+                lineRenderer.SetPositions(positionsForLine.GetRange(0, 5).ToArray());
             }
 
         }
@@ -52,8 +71,11 @@ public class ScoreManagerScript : MonoBehaviour
     public void updateScore(GameObject Card)
     {
         int value = GameManagerScript.instance.curentPlayerIndex;
-        MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card == Card);
+        MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card.Equals(Card));
+        Debug.Log("Score Update Start");
+        Debug.Log("row :" + grid.row + " column: " + grid.column + " card: " + grid.Card.name + " value " + value);
         ScoreOfCards[grid.row, grid.column] = value;
+        Debug.Log("Score Update end");
     }
 
 

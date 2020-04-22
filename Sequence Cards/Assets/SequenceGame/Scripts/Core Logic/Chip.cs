@@ -121,7 +121,7 @@ public class Chip : MonoBehaviour
                 if (hit.collider.CompareTag(ConstantString.TagForDisplayCards) && player.checkIfCardExist(hit.collider.gameObject))
                 {
                     Debug.Log(hit.collider.transform.position);
-                    Debug.Log("inside if");
+                    // Debug.Log("inside if");
                     // Vector3 position =  Camera.main.ScreenToWorldPoint(hit.collider.transform.position);
                     transform.position = new Vector3(hit.collider.transform.position.x, transform.position.y, hit.collider.transform.position.z);
                     transform.localPosition = new Vector3(transform.localPosition.x, -3.2f, transform.localPosition.z);
@@ -132,7 +132,7 @@ public class Chip : MonoBehaviour
                     Debug.Log("chip kept" + player.selectedChip);
                     player.changeCard(hit.collider.gameObject);
                     GameManagerScript.instance.endRound();
-                    //                    ScoreManagerScript.instance.updateScore(hit.collider.gameObject);
+                    ScoreManagerScript.instance.updateScore(hit.collider.gameObject);
                     player.CardsGlow("all", true);
                 }
                 else
