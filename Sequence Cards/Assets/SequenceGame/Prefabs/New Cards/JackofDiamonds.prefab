@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7886404885264318080}
   - component: {fileID: 7988378101217716678}
   - component: {fileID: -1117849486089426970}
+  - component: {fileID: 6227793769423411733}
   m_Layer: 0
   m_Name: JackofDiamonds
   m_TagString: Cards
@@ -95,3 +96,16 @@ MonoBehaviour:
   eraseRenderer: 1
   originalLayer: 0
   originalMaterials: []
+--- !u!65 &6227793769423411733
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423803041969759749}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.016, y: 0.020000005, z: 0.0000000013987648}
+  m_Center: {x: 0, y: 0, z: 0}

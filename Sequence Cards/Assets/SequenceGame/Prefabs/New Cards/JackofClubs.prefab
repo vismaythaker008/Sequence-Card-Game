@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5787012369823995325}
   - component: {fileID: 9037563196832327897}
   - component: {fileID: -4725337610707772863}
+  - component: {fileID: -5978543669823279975}
   m_Layer: 0
   m_Name: JackofClubs
   m_TagString: Cards
@@ -95,3 +96,16 @@ MonoBehaviour:
   eraseRenderer: 1
   originalLayer: 0
   originalMaterials: []
+--- !u!65 &-5978543669823279975
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039133581696445757}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.016, y: 0.020000005, z: 0.000087531655}
+  m_Center: {x: 0, y: -6.921708e-20, z: -0.00004376547}

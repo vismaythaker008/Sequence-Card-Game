@@ -68,6 +68,25 @@ public class ScoreManagerScript : MonoBehaviour
 
         }
     }
+    public SolutionInfo getOtherPlayersScore(int index)
+    {
+        SolutionInfo maxSolution = new SolutionInfo();
+        for (int i = 0; i < GameManagerScript.instance.PlayerCount; i++)
+        {
+            if (i != index)
+            {
+                solutionInfo = Solution.longestLine(ScoreOfCards, i);
+                if (solutionInfo.length > maxSolution.length)
+                {
+                    maxSolution = solutionInfo;
+                }
+
+            }
+
+        }
+        return maxSolution;
+
+    }
     public void updateScore(GameObject Card)
     {
         int value = GameManagerScript.instance.curentPlayerIndex;

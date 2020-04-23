@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 {
     public Transform[] CardPositions;
     public Dictionary<int, GameObject> Cards = new Dictionary<int, GameObject>();
+    public List<MatrixOfCards> PossibleCardsForJacks = new List<MatrixOfCards>();
     private Coroutine Play;
     private Coroutine ManageCards;
     public GameObject selectedChip = null;
@@ -85,18 +86,29 @@ public class Player : MonoBehaviour
         //     Debug.Log("name " + card.name == item.Card.name);
         //     Debug.Log("data " + card.Equals(item.Card));
         // }
-
-        MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card.Equals(card));
-
-        Debug.Log(grid.row);
-        Debug.Log(grid.column);
-        Debug.Log(grid.Card.name);
-        Debug.Log(MatrixOfOwnCards.Contains(grid));
-        Debug.Log(ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column]);
-        if (MatrixOfOwnCards.Contains(grid) && ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column] == -1)
-            return true;
+        if (PossibleCardsForJacks.Count != 0)
+        {
+            MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card.Equals(card));
+            if (PossibleCardsForJacks.Contains(grid))
+                return true;
+            else
+                return false;
+        }
         else
-            return false;
+        {
+            MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card.Equals(card));
+
+            Debug.Log(grid.row);
+            Debug.Log(grid.column);
+            Debug.Log(grid.Card.name);
+            Debug.Log(MatrixOfOwnCards.Contains(grid));
+            Debug.Log(ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column]);
+            if (MatrixOfOwnCards.Contains(grid) && ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column] == -1)
+                return true;
+            else
+                return false;
+        }
+
 
     }
     public void changeCard(GameObject card)
@@ -200,6 +212,7 @@ public class Player : MonoBehaviour
                     CardsGlow(selectedCardName, true);
                 }
                 selectedCardName = hit.collider.name;
+                Debug.Log(selectedCardName);
                 CardsGlow(selectedCardName, false);
 
                 // Debug.Log(card.GetComponent<MeshRenderer>().material.GetFloat("_SmoothnessTextureChannel"));
@@ -220,13 +233,51 @@ public class Player : MonoBehaviour
     public void CardsGlow(string name, bool glow)
     {
         IEnumerable<GameObject> cards;
-        if (name != "all")
+
+
+        if (name == "JackofSpades" || name == "JackofHearts")
+        {
+            //one eyed jack
+            Debug.Log("one eyed jack");
+            for (int i = 0; i < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(0) + 1; i++)
+            {
+                for (int j = 0; j < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(1) + 1; j++)
+                {
+                    if (ScoreManagerScript.instance.ScoreOfCards[i, j] != playerIndex && ScoreManagerScript.instance.ScoreOfCards[i, j] != -1)
+                    {
+                        MatrixOfCards matrixOfCard = GridMatrixOfTotalDisplayCards.Find(o => o.row == i && o.column == j);
+                        if (!PossibleCardsForJacks.Contains(matrixOfCard))
+                            PossibleCardsForJacks.Add(matrixOfCard);
+                        matrixOfCard.Card.transform.GetComponent<Outline>().eraseRenderer = glow;
+                    }
+                }
+            }
+        }
+        else if (name == "JackofClubs" || name == "JackofDiamonds")
+        {
+            //two eyed jack
+            Debug.Log("two eyed jack");
+            for (int i = 0; i < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(0) + 1; i++)
+            {
+                for (int j = 0; j < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(1) + 1; j++)
+                {
+                    if (ScoreManagerScript.instance.ScoreOfCards[i, j] != playerIndex)
+                    {
+                        MatrixOfCards matrixOfCard = GridMatrixOfTotalDisplayCards.Find(o => o.row == i && o.column == j);
+                        if (!PossibleCardsForJacks.Contains(matrixOfCard))
+                            PossibleCardsForJacks.Add(matrixOfCard);
+                        matrixOfCard.Card.transform.GetComponent<Outline>().eraseRenderer = glow;
+                    }
+                }
+            }
+        }
+        else if (name != "all")
         {
             cards = Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.name == name);
             // Debug.Log(name + cards);
             foreach (GameObject item in cards)
             {
-                item.transform.GetComponent<Outline>().eraseRenderer = glow;
+                item.GetComponent<Outline>().eraseRenderer = glow;
             }
         }
         else
@@ -234,14 +285,14 @@ public class Player : MonoBehaviour
             cards = Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.CompareTag(ConstantString.TagForDisplayCards));
             foreach (GameObject item in cards)
             {
-                item.transform.GetComponent<Outline>().eraseRenderer = glow;
+                item.GetComponent<Outline>().eraseRenderer = glow;
             }
             cards = (Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.CompareTag(ConstantString.TagForPlayingCards)));
             foreach (GameObject item in cards)
             {
-                item.transform.GetComponent<Outline>().eraseRenderer = glow;
+                item.GetComponent<Outline>().eraseRenderer = glow;
             }
-
+            PossibleCardsForJacks.Clear();
         }
 
         // GameObject[] cards = FindGameObjectsWithName(hit.collider.gameObject.name);

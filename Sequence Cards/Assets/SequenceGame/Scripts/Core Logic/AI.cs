@@ -21,6 +21,7 @@ public class AI : MonoBehaviour
     public int TotalCardCount;
     private ManageChip manageChip;
     public int playerIndex;
+    private int JackCardIndex = -1;
 
     void Start()
     {
@@ -84,25 +85,29 @@ public class AI : MonoBehaviour
     {
         int index;
 
-        // breaking other players pairs
-        if ((index = BreakOtherPlayersPairs()) != -1 && checkIfPossible(index))
+        if ((index = MatrixOfOwnCards.FindIndex(o => o.Card.name.Contains("Jack"))) != -1)
         {
-            PutCard(index);
+            FindCardForJacks(index);
+        }
+        // breaking other players pairs
+        else if ((index = BreakOtherPlayersPairs()) != -1 && checkIfPossible(index))
+        {
+            PutCard(index, false);
         }
 
         //near to previous card
         else if ((index = getNearestNeighbour()) != -1 && checkIfPossible(index))
         {
-            PutCard(index);
+            PutCard(index, false);
         }
         //near to corner
         else if ((index = nearToCorner()) != -1 && checkIfPossible(index))
         {
-            PutCard(index);
+            PutCard(index, false);
         }
         else if ((index = nearToCorner()) != -1 && checkIfPossible(index))
         {
-            PutCard(index);
+            PutCard(index, false);
         }
         else
         {
@@ -117,31 +122,107 @@ public class AI : MonoBehaviour
                 }
             } while (notSelected);
 
-            PutCard(tempIndex);
+            PutCard(tempIndex, false);
 
         }
 
         yield return null;
     }
+    public void FindCardForJacks(int index)
+    {
+        JackCardIndex = index;
+        MatrixOfCards matrixOfCard = MatrixOfOwnCards[index];
+        SolutionInfo solutionInfo;
+        switch (matrixOfCard.Card.name)
+        {
+            case "JackofSpades":
+            case "JackofHearts":
+                Debug.Log("one eyed");
+
+                solutionInfo = ScoreManagerScript.instance.getOtherPlayersScore(playerIndex);
+                PutCard(GridMatrixOfTotalDisplayCards.FindIndex(o => o.row == solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].row && o.column == solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].column), true);
+                // ScoreManagerScript.instance.ScoreOfCards[solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].row, solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].column] = -1;
+
+                break;
+            case "JackofClubs":
+            case "JackofDiamonds":
+                Debug.Log("2 eyed");
+                solutionInfo = ScoreManagerScript.instance.getOtherPlayersScore(playerIndex);
+                if (solutionInfo.length > 3)
+                    ScoreManagerScript.instance.ScoreOfCards[solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].row, solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].column] = playerIndex;
+                else
+                {
+
+                    if ((index = ExtendSequenceByJack()) != -1)
+                    {
+                        PutCard(index, true);
+                    }
+                }
+                break;
+
+        }
+    }
+    int ExtendSequenceByJack()
+    {
+        int nearestIndex = -1;
+        for (int i = 0; i < GridMatrixOfTotalDisplayCards.Count; i++)
+        {
+            if (ScoreManagerScript.instance.ScoreOfCards[GridMatrixOfTotalDisplayCards[i].row, GridMatrixOfTotalDisplayCards[i].column] == -1)
+            {
+
+                ScoreManagerScript.instance.ScoreOfCards[GridMatrixOfTotalDisplayCards[i].row, GridMatrixOfTotalDisplayCards[i].column] = playerIndex;
+
+                if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, playerIndex).length == 4)
+                {
+                    nearestIndex = i;
+                }
+                else if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, playerIndex).length == 3)
+                {
+                    nearestIndex = i;
+                }
+                else if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, playerIndex).length == 2)
+                {
+                    nearestIndex = i;
+                }
+                else
+                {
+                    nearestIndex = -1;
+                }
+                ScoreManagerScript.instance.ScoreOfCards[GridMatrixOfTotalDisplayCards[i].row, GridMatrixOfTotalDisplayCards[i].column] = -1;
+            }
+        }
+        return nearestIndex;
+    }
     bool checkIfPossible(int index)
     {
-
         if (ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[index].row, MatrixOfOwnCards[index].column] == -1)
             return true;
         else
             return false;
     }
-    public void PutCard(int index)
+
+    public void PutCard(int index, bool jack)
     {
 
         selectedChip = manageChip.getChip();
 
         // Debug.Log(selectedChip);
         //        Debug.Log(" put card index " + index + " card " + MatrixOfOwnCards[index].Card + " row " + MatrixOfOwnCards[index].row + " column " + MatrixOfOwnCards[index].column);
-        PutChip = StartCoroutine(putChip(selectedChip, index));
-        ScoreManagerScript.instance.updateScore(MatrixOfOwnCards[index].Card);
+        PutChip = StartCoroutine(putChip(selectedChip, index, jack));
+        if (!jack)
+        {
+
+            ScoreManagerScript.instance.updateScore(MatrixOfOwnCards[index].Card);
+            changeCard(MatrixOfOwnCards[index].Card);
+        }
+        else
+        {
+            ScoreManagerScript.instance.updateScore(GridMatrixOfTotalDisplayCards[index].Card);
+            changeCard(MatrixOfOwnCards[JackCardIndex].Card);
+            JackCardIndex = -1;
+        }
         //ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[index].row, MatrixOfOwnCards[index].column] = playerIndex;
-        changeCard(MatrixOfOwnCards[index].Card);
+
         GameManagerScript.instance.endRound();
     }
     public void changeCard(GameObject card)
@@ -188,11 +269,20 @@ public class AI : MonoBehaviour
 
 
     }
-    IEnumerator putChip(GameObject chip, int index)
+    IEnumerator putChip(GameObject chip, int index, bool jack)
     {
         float elapsedTime = 0;
         float waitTime = 0.3f;
-        Vector3 newPosition = MatrixOfOwnCards[index].Card.transform.position;
+        Vector3 newPosition;
+        if (jack)
+        {
+            newPosition = GridMatrixOfTotalDisplayCards[index].Card.transform.position;
+        }
+        else
+        {
+            newPosition = MatrixOfOwnCards[index].Card.transform.position;
+        }
+
         newPosition.y += 0.3f;
         while (elapsedTime < waitTime)
         {
@@ -215,17 +305,17 @@ public class AI : MonoBehaviour
             if (MatrixOfOwnCards[i].row != 100)
             {
                 int temp = ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column];
-                ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column] = 1;
+                ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[i].row, MatrixOfOwnCards[i].column] = playerIndex;
 
-                if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, 1).length == 4)
+                if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, playerIndex).length == 4)
                 {
                     nearestIndex = i;
                 }
-                else if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, 1).length == 3)
+                else if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, playerIndex).length == 3)
                 {
                     nearestIndex = i;
                 }
-                else if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, 1).length == 2)
+                else if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, playerIndex).length == 2)
                 {
                     nearestIndex = i;
                 }

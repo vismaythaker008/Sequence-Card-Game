@@ -134,6 +134,7 @@ public class Chip : MonoBehaviour
                     GameManagerScript.instance.endRound();
                     ScoreManagerScript.instance.updateScore(hit.collider.gameObject);
                     player.CardsGlow("all", true);
+
                 }
                 else
                 {
