@@ -8,23 +8,40 @@ public class CardsManagerScript : MonoBehaviour
 {
     public static CardsManagerScript instance;
     public MatrixOfCards[] GridMatrixOfTotalDisplayCards;
-
+    public List<MatrixOfCards> ListOfGridMatrixOfTotalDisplayCards;
     public delegate void TotalCardCountFound();
 
     //event  
     public static event TotalCardCountFound OnTotalCardFound;
 
-    public Player player;
+
     public GameObject[] Cards;
+    public List<DeckOfCards> TotalCards;
 
     public int PlayerCount;
     public int TotalCardCount;
-
+    public int deckCount;
 
 
     void Awake()
     {
         instance = this;
+
+    }
+    void Start()
+    {
+        ListOfGridMatrixOfTotalDisplayCards = new List<MatrixOfCards>(GridMatrixOfTotalDisplayCards);
+
+        for (int i = 0; i < Cards.Length; i++)
+        {
+            for (int j = 1; j < deckCount + 1; j++)
+            {
+                DeckOfCards deckOfCard = new DeckOfCards();
+                deckOfCard.Card = Cards[i];
+                deckOfCard.deck = j;
+                TotalCards.Add(deckOfCard);
+            }
+        }
 
     }
 
@@ -69,14 +86,17 @@ public class CardsManagerScript : MonoBehaviour
 
     public GameObject getCard()
     {
-        return Cards[Random.Range(0, Cards.Length)];
+        GameObject card;
+        int tempIndex;
+        do
+        {
+            tempIndex = Random.Range(0, TotalCards.Count);
+            card = TotalCards[tempIndex].Card;
+
+        } while (TotalCards[tempIndex].checkAssigned());
+        TotalCards[tempIndex].assign();
+        return card;
     }
-
-
-
-
-
-
 
 }
 [System.Serializable]
@@ -84,6 +104,25 @@ public class MatrixOfCards
 {
     public int row;
     public int column;
+    public int deck = 0;
+    public GameObject Chip = null;
     public GameObject Card;
+
+}
+[System.Serializable]
+public class DeckOfCards
+{
+    public GameObject Card;
+    public int deck;
+    private bool assigned = false;
+
+    public bool checkAssigned()
+    {
+        return assigned;
+    }
+    public void assign()
+    {
+        assigned = true;
+    }
 
 }

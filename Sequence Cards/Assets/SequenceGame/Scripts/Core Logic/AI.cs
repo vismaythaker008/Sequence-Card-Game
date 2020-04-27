@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class AI : MonoBehaviour
 {
+    #region variables
     public List<GameObject> Cards;
     public GameObject selectedChip;
     private Coroutine PutChip;
-    public List<MatrixOfCards> GridMatrixOfTotalDisplayCards;
+
 
     public List<MatrixOfCards> MatrixOfOwnCards;
     public MatrixOfCards[] MatrixOfUsedCards;
@@ -23,12 +24,7 @@ public class AI : MonoBehaviour
     public int playerIndex;
     private int JackCardIndex = -1;
 
-    void Start()
-    {
-
-        GridMatrixOfTotalDisplayCards = new List<MatrixOfCards>(CardsManagerScript.instance.GridMatrixOfTotalDisplayCards);
-
-    }
+    #endregion
     void OnEnable()
     {
         CardsManagerScript.OnTotalCardFound += setTotalCardCount;
@@ -66,11 +62,11 @@ public class AI : MonoBehaviour
             else
             {
 
-                MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
+                MatrixOfOwnCards.Add(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name && x.deck == 1));
                 Debug.Log(" index " + index + " card " + MatrixOfOwnCards[index].Card + " row " + MatrixOfOwnCards[index].row + " column " + MatrixOfOwnCards[index].column);
                 index++;
 
-                MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
+                MatrixOfOwnCards.Add(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name && x.deck == 2));
                 Debug.Log(" index " + index + " card " + MatrixOfOwnCards[index].Card + " row " + MatrixOfOwnCards[index].row + " column " + MatrixOfOwnCards[index].column);
                 index++;
             }
@@ -138,9 +134,21 @@ public class AI : MonoBehaviour
             case "JackofSpades":
             case "JackofHearts":
                 Debug.Log("one eyed");
+                int tempIndex = -1;
+                int row = -1;
+                int column = -1;
 
                 solutionInfo = ScoreManagerScript.instance.getOtherPlayersScore(playerIndex);
-                PutCard(GridMatrixOfTotalDisplayCards.FindIndex(o => o.row == solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].row && o.column == solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].column), true);
+                do
+                {
+                    tempIndex = Random.Range(0, solutionInfo.data.Count);
+                    row = solutionInfo.data[tempIndex].row;
+                    column = solutionInfo.data[tempIndex].column;
+                } while ((row == 0 && column == 0) || (row == 0 && column == 9) || (row == 9 && column == 0) || (row == 9 && column == 9));
+
+
+                Debug.Log(tempIndex + "  " + row + "  " + column);
+                PutCard(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.FindIndex(o => o.row == row && o.column == column), true);
                 // ScoreManagerScript.instance.ScoreOfCards[solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].row, solutionInfo.data[Random.Range(0, solutionInfo.data.Count)].column] = -1;
 
                 break;
@@ -165,12 +173,12 @@ public class AI : MonoBehaviour
     int ExtendSequenceByJack()
     {
         int nearestIndex = -1;
-        for (int i = 0; i < GridMatrixOfTotalDisplayCards.Count; i++)
+        for (int i = 0; i < CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Count; i++)
         {
-            if (ScoreManagerScript.instance.ScoreOfCards[GridMatrixOfTotalDisplayCards[i].row, GridMatrixOfTotalDisplayCards[i].column] == -1)
+            if (ScoreManagerScript.instance.ScoreOfCards[CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[i].row, CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[i].column] == -1)
             {
 
-                ScoreManagerScript.instance.ScoreOfCards[GridMatrixOfTotalDisplayCards[i].row, GridMatrixOfTotalDisplayCards[i].column] = playerIndex;
+                ScoreManagerScript.instance.ScoreOfCards[CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[i].row, CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[i].column] = playerIndex;
 
                 if (Solution.longestLine(ScoreManagerScript.instance.ScoreOfCards, playerIndex).length == 4)
                 {
@@ -188,7 +196,7 @@ public class AI : MonoBehaviour
                 {
                     nearestIndex = -1;
                 }
-                ScoreManagerScript.instance.ScoreOfCards[GridMatrixOfTotalDisplayCards[i].row, GridMatrixOfTotalDisplayCards[i].column] = -1;
+                ScoreManagerScript.instance.ScoreOfCards[CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[i].row, CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[i].column] = -1;
             }
         }
         return nearestIndex;
@@ -211,16 +219,19 @@ public class AI : MonoBehaviour
         PutChip = StartCoroutine(putChip(selectedChip, index, jack));
         if (!jack)
         {
-
-            ScoreManagerScript.instance.updateScore(MatrixOfOwnCards[index].Card);
+            int i = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.FindIndex(o => o.Card.Equals(MatrixOfOwnCards[index].Card) && o.deck == MatrixOfOwnCards[index].deck);
+            Debug.Log(i);
             changeCard(MatrixOfOwnCards[index].Card);
+            index = i;
         }
         else
         {
-            ScoreManagerScript.instance.updateScore(GridMatrixOfTotalDisplayCards[index].Card);
             changeCard(MatrixOfOwnCards[JackCardIndex].Card);
             JackCardIndex = -1;
         }
+        CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip = selectedChip;
+        ScoreManagerScript.instance.updateScore(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Card, false);
+
         //ScoreManagerScript.instance.ScoreOfCards[MatrixOfOwnCards[index].row, MatrixOfOwnCards[index].column] = playerIndex;
 
         GameManagerScript.instance.endRound();
@@ -229,7 +240,7 @@ public class AI : MonoBehaviour
     {
         // int cardPositionIndexInList = Cards.FindIndex(o => o == card);
         int cardPositionIndexInMatrix;
-
+        string name = "";
         Cards.Remove(card);
 
 
@@ -237,35 +248,78 @@ public class AI : MonoBehaviour
         Debug.Log(Card.name);
 
         Cards.Add(Card);
-        if (Card.name.Contains("Jack"))
+        if (JackCardIndex != -1)
         {
-            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == card.name);
-            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
-            cardPositionIndexInMatrix = MatrixOfOwnCards.FindLastIndex(o => o.Card.name == card.name);
-            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
-            MatrixOfCards matrixOfCard = new MatrixOfCards();
-            matrixOfCard.row = 100;
-            matrixOfCard.column = 100;
-            matrixOfCard.Card = Card;
-            MatrixOfOwnCards.Add(matrixOfCard);
+            name = MatrixOfOwnCards[JackCardIndex].Card.name;
         }
         else
         {
-            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == card.name);
+            name = card.name;
+        }
+        if (JackCardIndex != -1)
+        {
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == name);
             MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
 
-            MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
+            if (Card.name.Contains("Jack"))
+            {
 
-            MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
-            // MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
-            int tempIndex = MatrixOfOwnCards.FindIndex(o => o.Card.name == Card.name);
-            Debug.Log(" index " + tempIndex + " card " + MatrixOfOwnCards[tempIndex].Card + " row " + MatrixOfOwnCards[tempIndex].row + " column " + MatrixOfOwnCards[tempIndex].column);
+                MatrixOfCards matrixOfCard = new MatrixOfCards();
+                matrixOfCard.row = 100;
+                matrixOfCard.column = 100;
+                matrixOfCard.Card = Card;
+                MatrixOfOwnCards.Add(matrixOfCard);
+            }
+            else
+            {
 
-            // MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
-            tempIndex = MatrixOfOwnCards.FindLastIndex(o => o.Card.name == Card.name);
-            Debug.Log(" index " + tempIndex + " card " + MatrixOfOwnCards[tempIndex].Card + " row " + MatrixOfOwnCards[tempIndex].row + " column " + MatrixOfOwnCards[tempIndex].column);
+                MatrixOfOwnCards.Add(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name && x.deck == 1));
+
+                MatrixOfOwnCards.Add(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name && x.deck == 2));
+                // MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
+                int tempIndex = MatrixOfOwnCards.FindIndex(o => o.Card.name == Card.name && o.deck == 1);
+                Debug.Log(" index " + tempIndex + " card " + MatrixOfOwnCards[tempIndex].Card + " row " + MatrixOfOwnCards[tempIndex].row + " column " + MatrixOfOwnCards[tempIndex].column);
+
+                // MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
+                tempIndex = MatrixOfOwnCards.FindIndex(o => o.Card.name == Card.name && o.deck == 2);
+                Debug.Log(" index " + tempIndex + " card " + MatrixOfOwnCards[tempIndex].Card + " row " + MatrixOfOwnCards[tempIndex].row + " column " + MatrixOfOwnCards[tempIndex].column);
+
+            }
 
         }
+        else
+        {
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == name && o.deck == 1);
+            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
+            cardPositionIndexInMatrix = MatrixOfOwnCards.FindIndex(o => o.Card.name == name && o.deck == 2);
+            MatrixOfOwnCards.Remove(MatrixOfOwnCards[cardPositionIndexInMatrix]);
+            if (Card.name.Contains("Jack"))
+            {
+
+                MatrixOfCards matrixOfCard = new MatrixOfCards();
+                matrixOfCard.row = 100;
+                matrixOfCard.column = 100;
+                matrixOfCard.Card = Card;
+                MatrixOfOwnCards.Add(matrixOfCard);
+            }
+            else
+            {
+
+                MatrixOfOwnCards.Add(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name && x.deck == 1));
+
+                MatrixOfOwnCards.Add(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name && x.deck == 2));
+                // MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
+                int tempIndex = MatrixOfOwnCards.FindIndex(o => o.Card.name == Card.name && o.deck == 1);
+                Debug.Log(" index " + tempIndex + " card " + MatrixOfOwnCards[tempIndex].Card + " row " + MatrixOfOwnCards[tempIndex].row + " column " + MatrixOfOwnCards[tempIndex].column);
+
+                // MatrixOfOwnCards.Add(GridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
+                tempIndex = MatrixOfOwnCards.FindIndex(o => o.Card.name == Card.name && o.deck == 2);
+                Debug.Log(" index " + tempIndex + " card " + MatrixOfOwnCards[tempIndex].Card + " row " + MatrixOfOwnCards[tempIndex].row + " column " + MatrixOfOwnCards[tempIndex].column);
+
+            }
+
+        }
+
 
 
     }
@@ -276,7 +330,7 @@ public class AI : MonoBehaviour
         Vector3 newPosition;
         if (jack)
         {
-            newPosition = GridMatrixOfTotalDisplayCards[index].Card.transform.position;
+            newPosition = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Card.transform.position;
         }
         else
         {

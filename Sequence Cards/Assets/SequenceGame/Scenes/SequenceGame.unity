@@ -1189,41 +1189,6 @@ Transform:
   m_Father: {fileID: 1778138121}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &201719023
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 800
-  m_Height: 480
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!4 &206047274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3185809876564717455, guid: 711ab55310a11f643a20f735cfee50d6,
@@ -4682,6 +4647,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
+--- !u!84 &605197000
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 800
+  m_Height: 480
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &606965293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6163,7 +6163,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 0
   m_RenderingPath: 1
-  m_TargetTexture: {fileID: 201719023}
+  m_TargetTexture: {fileID: 1792123387}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -8156,41 +8156,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957877428}
   m_CullTransparentMesh: 0
---- !u!84 &967459237
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 800
-  m_Height: 480
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &980543987
 GameObject:
   m_ObjectHideFlags: 0
@@ -12670,8 +12635,8 @@ MonoBehaviour:
   sourceCamera: {fileID: 1641020962}
   outlineCamera: {fileID: 730932139}
   outlineShaderMaterial: {fileID: 0}
-  renderTexture: {fileID: 201719023}
-  extraRenderTexture: {fileID: 967459237}
+  renderTexture: {fileID: 1792123387}
+  extraRenderTexture: {fileID: 605197000}
 --- !u!1 &1645490134 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4518517808426797916, guid: 1e88c7ff415d6d54a809a539af12919e,
@@ -12812,305 +12777,505 @@ MonoBehaviour:
   GridMatrixOfTotalDisplayCards:
   - row: 0
     column: 0
+    deck: 0
+    Chip: {fileID: 0}
     Card: {fileID: 1104356781}
   - row: 0
     column: 1
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 566749892}
   - row: 0
     column: 2
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 313927430}
   - row: 0
     column: 3
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 710022927}
   - row: 0
     column: 4
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 641262483}
   - row: 0
     column: 5
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1543652126}
   - row: 0
     column: 6
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 406124553}
   - row: 0
     column: 7
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 153954766}
   - row: 0
     column: 8
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1178569436}
   - row: 0
     column: 9
+    deck: 0
+    Chip: {fileID: 0}
     Card: {fileID: 842765905}
   - row: 1
     column: 0
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1945977749}
   - row: 1
     column: 1
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 430493797}
   - row: 1
     column: 2
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 2017421132}
   - row: 1
     column: 3
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1618306928}
   - row: 1
     column: 4
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 160046350}
   - row: 1
     column: 5
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1903278344}
   - row: 1
     column: 6
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 537239473}
   - row: 1
     column: 7
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1737606506}
   - row: 1
     column: 8
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1951402803}
   - row: 1
     column: 9
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 223105567}
   - row: 2
     column: 0
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 912636950}
   - row: 2
     column: 1
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 312789229}
   - row: 2
     column: 2
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1771780393}
   - row: 2
     column: 3
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1923253102}
   - row: 2
     column: 4
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 755520617}
   - row: 2
     column: 5
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1092057915}
   - row: 2
     column: 6
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 710642749}
   - row: 2
     column: 7
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 801577516}
   - row: 2
     column: 8
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 949264699}
   - row: 2
     column: 9
+    deck: 0
+    Chip: {fileID: 0}
     Card: {fileID: 96368886}
   - row: 3
     column: 0
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1140254676}
   - row: 3
     column: 1
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1384940759}
   - row: 3
     column: 2
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 40576469}
   - row: 3
     column: 3
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1227235618}
   - row: 3
     column: 4
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1112576387}
   - row: 3
     column: 5
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 533135653}
   - row: 3
     column: 6
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 2042230929}
   - row: 3
     column: 7
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1713530760}
   - row: 3
     column: 8
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 71734180}
   - row: 3
     column: 9
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1257454663}
   - row: 4
     column: 0
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1385670382}
   - row: 4
     column: 1
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1566263969}
   - row: 4
     column: 2
+    deck: 0
+    Chip: {fileID: 0}
     Card: {fileID: 265146692}
   - row: 4
     column: 3
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 645694142}
   - row: 4
     column: 4
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 92793187}
   - row: 4
     column: 5
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 894454312}
   - row: 4
     column: 6
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1071321928}
   - row: 4
     column: 7
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1047827959}
   - row: 4
     column: 8
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 2134131796}
   - row: 4
     column: 9
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1092813827}
   - row: 5
     column: 0
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1552287743}
   - row: 5
     column: 1
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1198384112}
   - row: 5
     column: 2
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 583475253}
   - row: 5
     column: 3
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 411434682}
   - row: 5
     column: 4
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 764156332}
   - row: 5
     column: 5
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1914896550}
   - row: 5
     column: 6
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 833861041}
   - row: 5
     column: 7
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1711029722}
   - row: 5
     column: 8
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1955062152}
   - row: 5
     column: 9
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1594745182}
   - row: 6
     column: 0
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 2136027128}
   - row: 6
     column: 1
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1652803902}
   - row: 6
     column: 2
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 394541799}
   - row: 6
     column: 3
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1813219880}
   - row: 6
     column: 4
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 761729330}
   - row: 6
     column: 5
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1308540653}
   - row: 6
     column: 6
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1780517316}
   - row: 6
     column: 7
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 954989173}
   - row: 6
     column: 8
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 243795109}
   - row: 6
     column: 9
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1993260200}
   - row: 7
     column: 0
+    deck: 1
+    Chip: {fileID: 0}
     Card: {fileID: 1741247669}
   - row: 7
     column: 1
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 779124513}
   - row: 7
     column: 2
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1907893772}
   - row: 7
     column: 3
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 77675730}
   - row: 7
     column: 4
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1015583563}
   - row: 7
     column: 5
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 898524575}
   - row: 7
     column: 6
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1201841528}
   - row: 7
     column: 7
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1227518838}
   - row: 7
     column: 8
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1461040543}
   - row: 7
     column: 9
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 44318973}
   - row: 8
     column: 0
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1771747214}
   - row: 8
     column: 1
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 2053351898}
   - row: 8
     column: 2
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 425109607}
   - row: 8
     column: 3
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 326303162}
   - row: 8
     column: 4
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1285964697}
   - row: 8
     column: 5
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1203642975}
   - row: 8
     column: 6
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1196010734}
   - row: 8
     column: 7
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1075645878}
   - row: 8
     column: 8
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1888332636}
   - row: 8
     column: 9
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 104119800}
   - row: 9
     column: 0
+    deck: 0
+    Chip: {fileID: 0}
     Card: {fileID: 794953080}
   - row: 9
     column: 1
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1645490134}
   - row: 9
     column: 2
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1395760985}
   - row: 9
     column: 3
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1467879019}
   - row: 9
     column: 4
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1846314283}
   - row: 9
     column: 5
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1635506045}
   - row: 9
     column: 6
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 777455525}
   - row: 9
     column: 7
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 1009935636}
   - row: 9
     column: 8
+    deck: 2
+    Chip: {fileID: 0}
     Card: {fileID: 535392067}
   - row: 9
     column: 9
+    deck: 0
+    Chip: {fileID: 0}
     Card: {fileID: 623949333}
-  player: {fileID: 0}
+  ListOfGridMatrixOfTotalDisplayCards: []
   Cards:
   - {fileID: 1020697688834645371, guid: 4666a446f5c75e64c972e3e573d4d00b, type: 3}
   - {fileID: 5429958309700791438, guid: b9968f3fbb4b24b48bd9f71c262b022c, type: 3}
@@ -13164,9 +13329,10 @@ MonoBehaviour:
   - {fileID: 3007945582021655164, guid: ca0858e2a516e424cbe02c0a522c43db, type: 3}
   - {fileID: 6332743699949981529, guid: 312c3c2eafd231648a75fecbfcce827d, type: 3}
   - {fileID: 3769907460612575624, guid: 2ce08307f3bc82c48af4a30456be58b8, type: 3}
-  - {fileID: 3769907460612575624, guid: 2ce08307f3bc82c48af4a30456be58b8, type: 3}
+  TotalCards: []
   PlayerCount: 0
   TotalCardCount: 0
+  deckCount: 0
 --- !u!4 &1654227744
 Transform:
   m_ObjectHideFlags: 0
@@ -13854,6 +14020,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6916543292264803846}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &1792123387
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 800
+  m_Height: 480
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1803334042
 GameObject:
   m_ObjectHideFlags: 0

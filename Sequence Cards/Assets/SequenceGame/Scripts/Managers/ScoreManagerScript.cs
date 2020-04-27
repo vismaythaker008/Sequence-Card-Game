@@ -87,9 +87,18 @@ public class ScoreManagerScript : MonoBehaviour
         return maxSolution;
 
     }
-    public void updateScore(GameObject Card)
+    public void updateScore(GameObject Card, bool jack)
     {
-        int value = GameManagerScript.instance.curentPlayerIndex;
+        int value;
+        if (jack)
+        {
+            value = -1;
+        }
+        else
+        {
+            value = GameManagerScript.instance.curentPlayerIndex;
+        }
+
         MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card.Equals(Card));
         Debug.Log("Score Update Start");
         Debug.Log("row :" + grid.row + " column: " + grid.column + " card: " + grid.Card.name + " value " + value);

@@ -6,6 +6,7 @@ public class ChipsManager : MonoBehaviour
 {
     public static ChipsManager instance;
     public int TotalChipCount;
+
     public GameObject[] ChipSelectionMenu;
 
     public List<Chips> ChipsPrefabList;

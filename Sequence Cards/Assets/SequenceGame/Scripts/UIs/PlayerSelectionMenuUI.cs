@@ -61,10 +61,10 @@ public class PlayerSelectionMenuUI : ScreenView
     {
         UIManager.Instance.ChangeScreen(SceneName.GamePlay);
         // UIAnimationManager.instance.Animate(AnimationMenu.GamePlay);
-
+        GameStateManager.Instance.ChangeGameState(GameState.GamePlay);
         WaitAsync(1000, () =>
                     {
-                        GameStateManager.Instance.ChangeGameState(GameState.GamePlay);
+
                         Debug.Log("gamestate change called");
                     });
     }

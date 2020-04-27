@@ -47,7 +47,7 @@ public class GameplayUI : ScreenView
         base.Hide();
         GameManagerScript.instance.HideCards();
         // GameStateManager.onGameStateChange -= OnGameStateChange;
-        CardsManagerScript.instance.player.HideCards();
+
         GameManagerScript.instance.endGame();
     }
     void showPlayerNames()
