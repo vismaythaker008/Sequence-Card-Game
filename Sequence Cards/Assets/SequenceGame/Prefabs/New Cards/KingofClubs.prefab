@@ -167,11 +167,9 @@ GameObject:
   - component: {fileID: 5904401618576444215}
   - component: {fileID: 5904401618573052757}
   - component: {fileID: 5904401618574018837}
-  - component: {fileID: 1063123519}
-  - component: {fileID: 1063123520}
-  - component: {fileID: 27143959}
   - component: {fileID: 27143960}
   - component: {fileID: -7799199492194495279}
+  - component: {fileID: -3874767318711625116}
   m_Layer: 0
   m_Name: KingofClubs
   m_TagString: Cards
@@ -216,7 +214,7 @@ MeshRenderer:
   m_GameObject: {fileID: 5904401618576217943}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -245,45 +243,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1063123519
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5904401618576217943}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.016000016, y: 0.020000001, z: 0.00000064106797}
-  m_Center: {x: -0.000000029802322, y: -0.00000002188608, z: -0.000015258789}
---- !u!114 &1063123520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5904401618576217943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f8027553da64a4b9c8ea3515c48bb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: 0
---- !u!65 &27143959
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5904401618576217943}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.016000018, y: 0.020000009, z: 0.00000071222087}
-  m_Center: {x: -0.000000029802322, y: -0.0000000032596288, z: -0.000015258789}
 --- !u!114 &27143960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +272,19 @@ MonoBehaviour:
   eraseRenderer: 1
   originalLayer: 0
   originalMaterials: []
+--- !u!65 &-3874767318711625116
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904401618576217943}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.016, y: 0.020000005, z: 0.0003195969}
+  m_Center: {x: 0, y: 4.656614e-10, z: 0}
 --- !u!1 &5904401618576218647
 GameObject:
   m_ObjectHideFlags: 0

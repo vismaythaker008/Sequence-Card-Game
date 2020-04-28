@@ -11,11 +11,9 @@ GameObject:
   - component: {fileID: 4200127001287937053}
   - component: {fileID: 4200127001291328573}
   - component: {fileID: 4200127001290231549}
-  - component: {fileID: 16022794}
-  - component: {fileID: 16022795}
-  - component: {fileID: 1014048274}
   - component: {fileID: 1014048275}
   - component: {fileID: 2892565785991885461}
+  - component: {fileID: 3852221434880890621}
   m_Layer: 0
   m_Name: 3ofSpades
   m_TagString: Cards
@@ -61,7 +59,7 @@ MeshRenderer:
   m_GameObject: {fileID: 4200127001288036413}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -90,45 +88,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &16022794
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4200127001288036413}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.01600001, y: 0.02000001, z: 0.0000007132791}
-  m_Center: {x: -0.000000074505806, y: -0.0000000144355, z: -1.6556201e-14}
---- !u!114 &16022795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4200127001288036413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f8027553da64a4b9c8ea3515c48bb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: 0
---- !u!65 &1014048274
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4200127001288036413}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.016000018, y: 0.020000009, z: 0.0000007136196}
-  m_Center: {x: -0.000000029802322, y: 0.0000000060535967, z: -0.000015258789}
 --- !u!114 &1014048275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +117,19 @@ MonoBehaviour:
   eraseRenderer: 1
   originalLayer: 0
   originalMaterials: []
+--- !u!65 &3852221434880890621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200127001288036413}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.016, y: 0.020000005, z: 0.0003195969}
+  m_Center: {x: 0, y: 4.656614e-10, z: 0}
 --- !u!1 &4200127001288036759
 GameObject:
   m_ObjectHideFlags: 0

@@ -101,8 +101,9 @@ public class ScoreManagerScript : MonoBehaviour
 
         MatrixOfCards grid = GridMatrixOfTotalDisplayCards.Find(x => x.Card.Equals(Card));
         Debug.Log("Score Update Start");
-        Debug.Log("row :" + grid.row + " column: " + grid.column + " card: " + grid.Card.name + " value " + value);
+        Debug.Log("row :" + grid.row + " column: " + grid.column + " card: " + grid.Card.name + " value " + value + " Score " + ScoreOfCards[grid.row, grid.column]);
         ScoreOfCards[grid.row, grid.column] = value;
+        Debug.Log("row :" + grid.row + " column: " + grid.column + " card: " + grid.Card.name + " value " + value + " Score " + ScoreOfCards[grid.row, grid.column]);
         Debug.Log("Score Update end");
     }
 

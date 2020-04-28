@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5787012369823995325}
   - component: {fileID: 9037563196832327897}
   - component: {fileID: -4725337610707772863}
-  - component: {fileID: -5978543669823279975}
+  - component: {fileID: -8907994465333773542}
   m_Layer: 0
   m_Name: JackofClubs
   m_TagString: Cards
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039133581696445757}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
   eraseRenderer: 1
   originalLayer: 0
   originalMaterials: []
---- !u!65 &-5978543669823279975
+--- !u!65 &-8907994465333773542
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,5 +107,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.016, y: 0.020000005, z: 0.000087531655}
-  m_Center: {x: 0, y: -6.921708e-20, z: -0.00004376547}
+  m_Size: {x: 0.016, y: 0.020000005, z: 0.0003195969}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -133,23 +133,29 @@ public class Chip : MonoBehaviour
                     player.selectedChip = null;
                     Debug.Log("chip kept" + player.selectedChip);
                     player.changeCard(hit.collider.gameObject);
-                    int index = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.FindIndex(o => o.Card.transform == hit.collider.transform);
-                    Debug.Log(index);
-                    GameObject oldChip = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip;
 
                     GameManagerScript.instance.endRound();
                     ScoreManagerScript.instance.updateScore(hit.collider.gameObject, true);
                     player.CardsGlow("all", true);
-                    if (player.JackCardName.Split('-')[0] == "one eyed")
+                    if (player.JackCardName != "")
                     {
-                        Destroy(oldChip);
-                        Destroy(this.gameObject);
-                        CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip = null;
-                    }
-                    if (player.JackCardName.Split('-')[0] == "two eyed")
-                    {
-                        Destroy(oldChip);
-                        CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip = this.gameObject;
+                        int index = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.FindIndex(o => o.Card.transform == hit.collider.transform);
+                        Debug.Log(index);
+                        GameObject oldChip = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip;
+                        Debug.Log(oldChip.name);
+                        Debug.Log(this.name);
+
+                        if (player.JackCardName.Split('-')[0] == "one eyed")
+                        {
+                            Destroy(oldChip);
+                            Destroy(this.gameObject);
+                            CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip = null;
+                        }
+                        if (player.JackCardName.Split('-')[0] == "two eyed")
+                        {
+                            Destroy(oldChip);
+                            CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip = this.gameObject;
+                        }
                     }
 
                 }

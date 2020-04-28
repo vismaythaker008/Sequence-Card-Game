@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     }
     IEnumerator ManageCard()
     {
-
+        Debug.Log("ManageCard");
         // Debug.Log(TotalCardCount);
         while (CardCount < TotalCardCount)
         {
@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
     }
     public bool checkIfCardExist(GameObject card)
     {
+        Debug.Log("checkIfCardExist");
         // foreach (var item in GridMatrixOfTotalDisplayCards)
         // {
         //     Debug.Log("name " + card.name == item.Card.name);
@@ -119,6 +120,7 @@ public class Player : MonoBehaviour
     }
     public void changeCard(GameObject card)
     {
+        Debug.Log("changeCard");
         string name;
         int cardPositionIndex = -1;
         if (JackCardName != "")
@@ -149,6 +151,7 @@ public class Player : MonoBehaviour
 
         Debug.Log("change card");
         GameObject Card = CardsManagerScript.instance.getCard();
+        Debug.Log("new card " + Card.name);
         GameObject c = Instantiate(Card, CardPositions[cardPositionIndex]);
         c.name = Card.name;
         c.transform.localScale = Vector3.one * 100f;
@@ -241,6 +244,7 @@ public class Player : MonoBehaviour
             yield return null;
 
         }
+
     }
     void MouseInputs()
     {
@@ -255,6 +259,7 @@ public class Player : MonoBehaviour
 
     void ThrowRay(Vector3 position)
     {
+        Debug.Log("ThrowRay");
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(position);
         if (Physics.Raycast(ray, out hit))
@@ -288,6 +293,7 @@ public class Player : MonoBehaviour
     }
     public void CardsGlow(string name, bool glow)
     {
+        Debug.Log("CardsGlow");
         IEnumerable<GameObject> cards;
 
 
@@ -324,17 +330,14 @@ public class Player : MonoBehaviour
             {
                 for (int j = 0; j < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(1) + 1; j++)
                 {
-                    if ((i == 0 && j == 0) || (i == 0 && j == 9) || (i == 9 && j == 0) || (i == 9 && j == 9))
+                    if ((i == 0 && j == 0) || (i == 0 && j == 9) || (i == 9 && j == 0) || (i == 9 && j == 9) || ScoreManagerScript.instance.ScoreOfCards[i, j] == playerIndex)
                     { }
                     else
                     {
-                        if (ScoreManagerScript.instance.ScoreOfCards[i, j] != playerIndex)
-                        {
-                            MatrixOfCards matrixOfCard = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(o => o.row == i && o.column == j);
-                            if (!PossibleCardsForJacks.Contains(matrixOfCard))
-                                PossibleCardsForJacks.Add(matrixOfCard);
-                            matrixOfCard.Card.transform.GetComponent<Outline>().eraseRenderer = glow;
-                        }
+                        MatrixOfCards matrixOfCard = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(o => o.row == i && o.column == j);
+                        if (!PossibleCardsForJacks.Contains(matrixOfCard))
+                            PossibleCardsForJacks.Add(matrixOfCard);
+                        matrixOfCard.Card.transform.GetComponent<Outline>().eraseRenderer = glow;
 
                     }
                 }
@@ -357,6 +360,7 @@ public class Player : MonoBehaviour
             }
             foreach (GameObject item in cards)
             {
+                Debug.Log(item.name);
                 item.GetComponent<Outline>().eraseRenderer = glow;
             }
             if (tempCount == 0)
