@@ -7,8 +7,7 @@ using SequenceCardGame;
 public class PlayerVsAI : Mode
 {
     private GameObject Timer;
-    public ScoreManager scoreManager;
-    ScoreTimer scoreTimer;
+
     public ModeManager modeManager;
 
     public void FindRunner()

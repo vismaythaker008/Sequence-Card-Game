@@ -9,7 +9,7 @@ public class GameOverUI : ScreenView
     public GameObject ball;
     public Text PlayerScoreTextGameOver;
     public Text PlayerHighScoreTextGameOver;
-    public ScoreManager scoreManager;
+
 
     private void OnEnable()
     {
@@ -18,7 +18,7 @@ public class GameOverUI : ScreenView
     }
     private void OnDisable()
     {
-        scoreManager.ScoreChanged -= ShowBestScore;
+
         GameStateManager.onGameStateChange -= OnGameStateChange;
     }
     private void Start()
@@ -41,9 +41,6 @@ public class GameOverUI : ScreenView
         UIManager.Instance.ChangeScreen(SceneName.GamePlay);
         // UIAnimationManager.instance.Animate(AnimationMenu.GamePlay);
         GameStateManager.Instance.ChangeGameState(GameState.GamePlay);
-        scoreManager.ResetScore();
-
-        ScoreTimer.Instance.startInitialTimer();
 
     }
     public void OnGoHomeBtnClk()
@@ -52,7 +49,7 @@ public class GameOverUI : ScreenView
         UIManager.Instance.ChangeScreen(SceneName.SelectionMenu);
         // UIAnimationManager.instance.Animate(AnimationMenu.SelectionMenu);
         GameStateManager.Instance.ChangeGameState(GameState.MainMenu);
-        scoreManager.ResetScore();
+
     }
     public void OnExitbtnClk()
     {

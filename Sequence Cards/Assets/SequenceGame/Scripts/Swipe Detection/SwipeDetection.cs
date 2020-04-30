@@ -13,6 +13,7 @@ public class SwipeDetection : MonoBehaviour
     public delegate void FinalPosition();
     public static FinalPosition finalPosition;
     bool isMouseButtonDown;
+    bool isEnable = false;
 
 
 
@@ -20,22 +21,25 @@ public class SwipeDetection : MonoBehaviour
 
     private void OnEnable()
     {
-        // GameStateManager.onGameStateChange += OnGameStateChange;
+        GameStateManager.onGameStateChange += OnGameStateChange;
 
     }
     private void OnDisable()
     {
-        // GameStateManager.onGameStateChange -= OnGameStateChange;
+        GameStateManager.onGameStateChange -= OnGameStateChange;
 
     }
 
-    void Update()
+    void LateUpdate()
     {
+        if (isEnable)
+        {
+
 
 #if UNITY_EDITOR
 
 
-        MouseInputs();
+            MouseInputs();
 
 #else
 
@@ -43,6 +47,7 @@ public class SwipeDetection : MonoBehaviour
 
 
 #endif
+        }
 
 
     }
@@ -103,6 +108,16 @@ public class SwipeDetection : MonoBehaviour
 
     }
 
-
+    void OnGameStateChange(GameState currentGameState)
+    {
+        if (currentGameState == GameState.GamePlay)
+        {
+            isEnable = true;
+        }
+        else
+        {
+            isEnable = false;
+        }
+    }
 
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2216930984226773473}
   - component: {fileID: 6337455304366011065}
   - component: {fileID: 8316636174018868444}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JackofHearts
   m_TagString: Cards
   m_Icon: {fileID: 0}

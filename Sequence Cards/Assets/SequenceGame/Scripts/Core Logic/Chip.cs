@@ -99,7 +99,7 @@ public class Chip : MonoBehaviour
             if (plane.Raycast(ray, out distance))
             {
                 transform.position = new Vector3(ray.GetPoint(distance).x, transform.position.y, ray.GetPoint(distance).z); // distance along the ray
-                transform.localPosition = new Vector3(transform.localPosition.x, -3.2f, transform.localPosition.z);
+                transform.localPosition = new Vector3(transform.localPosition.x, -3f, transform.localPosition.z);
             }
 
         }
@@ -116,7 +116,7 @@ public class Chip : MonoBehaviour
             // Debug.Log("final");
             Vector3 fwd = transform.TransformDirection(Vector3.down);
             Debug.DrawRay(transform.position, fwd * 50, Color.green);
-            if (Physics.Raycast(transform.position, fwd, out hit, 50))
+            if (Physics.Raycast(transform.position, fwd, out hit, 50, 9))
             {
                 Debug.Log(hit.collider.name);
                 if (hit.collider.CompareTag(ConstantString.TagForDisplayCards) && player.checkIfCardExist(hit.collider.gameObject))
@@ -126,7 +126,7 @@ public class Chip : MonoBehaviour
                     // Debug.Log("inside if");
                     // Vector3 position =  Camera.main.ScreenToWorldPoint(hit.collider.transform.position);
                     transform.position = new Vector3(hit.collider.transform.position.x, transform.position.y, hit.collider.transform.position.z);
-                    transform.localPosition = new Vector3(transform.localPosition.x, -3.2f, transform.localPosition.z);
+                    transform.localPosition = new Vector3(transform.localPosition.x, -3f, transform.localPosition.z);
                     GetComponentInParent<ManageChip>().chipCount--;
                     setChip = true;
                     Debug.Log("chip kept" + player.selectedChip);
@@ -144,11 +144,12 @@ public class Chip : MonoBehaviour
                         GameObject oldChip = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip;
                         Debug.Log(oldChip.name);
                         Debug.Log(this.name);
-
+                        Debug.Log(player.JackCardName.Split('-')[0]);
                         if (player.JackCardName.Split('-')[0] == "one eyed")
                         {
+
                             Destroy(oldChip);
-                            Destroy(this.gameObject);
+                            Destroy(gameObject);
                             CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip = null;
                         }
                         if (player.JackCardName.Split('-')[0] == "two eyed")

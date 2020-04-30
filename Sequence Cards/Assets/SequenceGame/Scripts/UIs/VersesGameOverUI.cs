@@ -9,7 +9,7 @@ public class VersesGameOverUI : ScreenView
     public GameObject ball;
     public Text PlayerScoreTextGameOver;
     public Text AiScoreTextGameOver;
-    public ScoreManager scoreManager;
+
 
     private void OnEnable()
     {
@@ -18,7 +18,7 @@ public class VersesGameOverUI : ScreenView
     }
     private void OnDisable()
     {
-        scoreManager.ScoreChanged -= ShowBestScore;
+
         GameStateManager.onGameStateChange -= OnGameStateChange;
     }
     private void Start()
@@ -40,9 +40,7 @@ public class VersesGameOverUI : ScreenView
         // UIManager.Instance.ChangeScreen(SceneName.Verses);
         // UIAnimationManager.instance.Animate(AnimationMenu.VersesUI);
         GameStateManager.Instance.ChangeGameState(GameState.GamePlay);
-        scoreManager.ResetScore();
 
-        ScoreTimer.Instance.startInitialTimer();
 
     }
     public void OnGoHomeBtnClk()
@@ -51,7 +49,7 @@ public class VersesGameOverUI : ScreenView
         UIManager.Instance.ChangeScreen(SceneName.MainMenu);
         // UIAnimationManager.instance.Animate(AnimationMenu.MainMenu);
         GameStateManager.Instance.ChangeGameState(GameState.MainMenu);
-        scoreManager.ResetScore();
+
     }
     public void OnExitbtnClk()
     {

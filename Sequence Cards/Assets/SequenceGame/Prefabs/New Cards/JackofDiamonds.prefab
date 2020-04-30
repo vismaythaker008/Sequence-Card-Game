@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7988378101217716678}
   - component: {fileID: -1117849486089426970}
   - component: {fileID: -404866562468319459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JackofDiamonds
   m_TagString: Cards
   m_Icon: {fileID: 0}

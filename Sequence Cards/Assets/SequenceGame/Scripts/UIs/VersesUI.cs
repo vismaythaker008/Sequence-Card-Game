@@ -7,7 +7,7 @@ using SequenceCardGame;
 public class VersesUI : ScreenView
 {
     public ModeManager modeManager;
-    public ScoreManager scoreManager;
+
     public Text PlayerScoreTextInVersesMode;
     public Text AIScoreTextInVersesMode;
 
@@ -30,7 +30,7 @@ public class VersesUI : ScreenView
     }
     private void OnDisable()
     {
-        scoreManager.ScoreChanged -= OnScoreChanged;
+
         GameStateManager.onGameStateChange -= OnGameStateChange;
         modeManager.ModeChanged -= OnGameModeChange;
     }
@@ -58,7 +58,7 @@ public class VersesUI : ScreenView
         // UIManager.Instance.ChangeScreen(SceneName.Verses);
         //UIAnimationManager.instance.Animate(AnimationMenu.VersesUI);
         GameStateManager.Instance.ChangeGameState(GameState.GamePlay);
-        scoreManager.ResetScore();
+
 
 
     }
@@ -68,7 +68,7 @@ public class VersesUI : ScreenView
         UIManager.Instance.ChangeScreen(SceneName.SelectionMenu);
         //UIAnimationManager.instance.Animate(AnimationMenu.MainMenu);
         GameStateManager.Instance.ChangeGameState(GameState.MainMenu);
-        scoreManager.ResetScore();
+
 
 
     }

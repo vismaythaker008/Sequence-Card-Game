@@ -104,8 +104,6 @@
      <Compile Include="Assets\SequenceGame\Scripts\Mixed\Mode.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Mixed\Rotate.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Mixed\ScaleUpDownScript.cs" />
-     <Compile Include="Assets\SequenceGame\Scripts\Mixed\ScoreManager.cs" />
-     <Compile Include="Assets\SequenceGame\Scripts\Mixed\ScoreTimer.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Mixed\ScreenView.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Mixed\Target.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\Mixed\Utilities.cs" />
@@ -124,7 +122,6 @@
      <Compile Include="Assets\SequenceGame\Scripts\UIs\SettingsMenuUI.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\UIs\VersesGameOverUI.cs" />
      <Compile Include="Assets\SequenceGame\Scripts\UIs\VersesUI.cs" />
-     <Compile Include="Assets\Testing.cs" />
      <None Include="Assets\SequenceGame\Shaders\Glow.shader" />
      <None Include="Assets\JMO Assets\Cartoon FX\Shaders\CFX3 Multiply Color.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

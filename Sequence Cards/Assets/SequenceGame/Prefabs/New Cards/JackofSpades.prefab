@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8841923536199393095}
   - component: {fileID: 8489192683502535575}
   - component: {fileID: -8348875056027606863}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JackofSpades
   m_TagString: Cards
   m_Icon: {fileID: 0}

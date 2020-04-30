@@ -7,7 +7,7 @@ using SequenceCardGame;
 public class PausedMenuUI : ScreenView
 {
 
-    public ScoreManager scoreManager;
+
     public ModeManager modeManager;
     private void OnEnable()
     {
@@ -59,8 +59,6 @@ public class PausedMenuUI : ScreenView
         GameStateManager.Instance.ChangeGameState(GameState.GamePlay);
         scoreManager.ResetScore();*/
 
-        if (ScoreTimer.Instance != null)
-            ScoreTimer.Instance.startInitialTimer();
     }
     public void OnMainMenuBtnClk()
     {

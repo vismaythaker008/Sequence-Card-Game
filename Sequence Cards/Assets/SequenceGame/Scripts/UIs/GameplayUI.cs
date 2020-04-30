@@ -9,7 +9,7 @@ public class GameplayUI : ScreenView
     public GameObject[] PlayerNames;
     public Image[] TurnImages;
     public ModeManager modeManager;
-    public ScoreManager scoreManager;
+
     private Coroutine Timer;
     int tempIndex = -1;
 

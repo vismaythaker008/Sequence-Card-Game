@@ -10,13 +10,15 @@ public class Player : MonoBehaviour
 {
     #region variables
     public Transform[] CardPositions;
+    public float Speed = 9f;
     public Dictionary<int, GameObject> Cards = new Dictionary<int, GameObject>();
     public List<MatrixOfCards> PossibleCardsForJacks = new List<MatrixOfCards>();
     private Coroutine Play;
     private Coroutine ManageCards;
     public GameObject selectedChip = null;
     public List<MatrixOfCards> MatrixOfOwnCards;
-    private Material material;
+
+    private ManageChip manageChip;
     private Coroutine RaycastToCards;
     private string selectedCardName = null;
     public int CardCount = 0;
@@ -24,8 +26,10 @@ public class Player : MonoBehaviour
     public int playerIndex;
 
     public string chipTag;
-
+    int layer_mask;
     public String JackCardName = "";
+    private Coroutine PutChip;
+
 
     #endregion
     void OnEnable()
@@ -34,7 +38,10 @@ public class Player : MonoBehaviour
         CardsManagerScript.OnTotalCardFound += setTotalCardCount;
         GameManagerScript.TurnChanged += startGame;
     }
-
+    void Start()
+    {
+        layer_mask = LayerMask.GetMask("Cards");
+    }
     void OnDisable()
     {
         CardsManagerScript.OnTotalCardFound -= setTotalCardCount;
@@ -72,11 +79,7 @@ public class Player : MonoBehaviour
             {
 
                 MatrixOfOwnCards.Add(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(x => x.Card.name == Card.name));
-
-
                 MatrixOfOwnCards.Add(CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.FindLast(x => x.Card.name == Card.name));
-
-
             }
             CardCount++;
         }
@@ -109,14 +112,34 @@ public class Player : MonoBehaviour
             Debug.Log(grid.column);
             Debug.Log(grid.Card.name);
             Debug.Log(MatrixOfOwnCards.Contains(grid));
-            Debug.Log(ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column]);
-            if (MatrixOfOwnCards.Contains(grid) && ScoreManagerScript.instance.ScoreOfCards[grid.row, grid.column] == -1)
+            Debug.Log(ScoreManagerScript.instance.ScoreOfCards.Find(o => o.row == grid.row && o.column == grid.column).value);
+            if (MatrixOfOwnCards.Contains(grid) && ScoreManagerScript.instance.ScoreOfCards.Find(o => o.row == grid.row && o.column == grid.column).value == -1)
                 return true;
             else
                 return false;
         }
 
 
+    }
+    IEnumerator putChip(GameObject Card)
+    {
+        Debug.Log("putChip");
+        float elapsedTime = 0;
+        float waitTime = 1f;
+        Vector3 newPosition = Card.transform.position;
+
+        newPosition.y += 0.3f;
+        while (elapsedTime < waitTime)
+        {
+            selectedChip.transform.position = Vector3.Lerp(selectedChip.transform.position, newPosition, Speed * Time.deltaTime);
+            elapsedTime += Time.deltaTime;
+
+            // Yield here
+            yield return new WaitForEndOfFrame();
+        }
+        // Make sure we got there
+        selectedChip.transform.position = newPosition;
+        yield return null;
     }
     public void changeCard(GameObject card)
     {
@@ -137,8 +160,9 @@ public class Player : MonoBehaviour
             Debug.Log(keyvaluepair.Value.name);
             if (keyvaluepair.Value.name == name)
             {
-                //dict.Remove(keyvaluepair.Key);
+                // dict.Remove(keyvaluepair.Key);
                 cardPositionIndex = keyvaluepair.Key;
+                Debug.Log(cardPositionIndex);
                 break;
             }
         }
@@ -230,6 +254,7 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
+            // Debug.Log("RaycastForCards");
 #if UNITY_EDITOR
 
 
@@ -259,12 +284,12 @@ public class Player : MonoBehaviour
 
     void ThrowRay(Vector3 position)
     {
-        Debug.Log("ThrowRay");
+        // Debug.Log("ThrowRay");
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(position);
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, 50, layer_mask))
         {
-            // Debug.Log("throw ray");
+            Debug.Log(hit.collider.name);
             if (hit.collider.CompareTag(ConstantString.TagForPlayingCards))
             {
                 if (selectedCardName != null)
@@ -279,16 +304,55 @@ public class Player : MonoBehaviour
                 // material = card.GetComponent<MeshRenderer>().material;
                 // material.SetFloat("_SmoothnessTextureChannel", 0.5f);
             }
-            else if (selectedChip == null && hit.collider.CompareTag(chipTag))
+            else if (hit.collider.CompareTag(ConstantString.TagForDisplayCards) && checkIfCardExist(hit.collider.gameObject))
             {
-                Debug.Log("assigned");
-                selectedChip = hit.collider.gameObject;
-                selectedChip.GetComponent<Chip>().putChip = true;
-                //selectedChip.GetComponent<Chip>().setChip = false;
 
+                selectedChip = manageChip.getChip();
+
+                Debug.Log(selectedChip);
+                changeCard(hit.collider.gameObject);
+
+                GameManagerScript.instance.endRound();
+                ScoreManagerScript.instance.updateScore(hit.collider.gameObject, false);
+                CardsGlow("all", true);
+                if (JackCardName != "")
+                {
+                    int index = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.FindIndex(o => o.Card.transform == hit.collider.transform);
+                    Debug.Log(index);
+                    GameObject oldChip = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip;
+                    Debug.Log(oldChip.name);
+
+                    Debug.Log(JackCardName.Split('-')[0]);
+                    if (JackCardName.Split('-')[0] == "one eyed")
+                    {
+
+                        Destroy(oldChip);
+
+                        CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip = null;
+                    }
+                    if (JackCardName.Split('-')[0] == "two eyed")
+                    {
+                        Destroy(oldChip);
+                        CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards[index].Chip = selectedChip;
+                        PutChip = StartCoroutine(putChip(hit.collider.gameObject));
+                    }
+                }
+                else
+                {
+                    PutChip = StartCoroutine(putChip(hit.collider.gameObject));
+                }
+                // else if (selectedChip == null && hit.collider.CompareTag(chipTag))
+                // {
+                //     Debug.Log("assigned");
+                //     selectedChip = hit.collider.gameObject;
+                //     selectedChip.GetComponent<Chip>().putChip = true;
+                //     //selectedChip.GetComponent<Chip>().setChip = false;
+
+                // }
+
+                // Debug.Log(selectedChip);
             }
 
-            // Debug.Log(selectedChip);
         }
     }
     public void CardsGlow(string name, bool glow)
@@ -302,15 +366,16 @@ public class Player : MonoBehaviour
             JackCardName = "one eyed-" + name;
             //one eyed jack
             Debug.Log("one eyed jack");
-            for (int i = 0; i < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(0) + 1; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(1) + 1; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     if ((i == 0 && j == 0) || (i == 0 && j == 9) || (i == 9 && j == 0) || (i == 9 && j == 9))
                     { }
                     else
                     {
-                        if (ScoreManagerScript.instance.ScoreOfCards[i, j] != playerIndex && ScoreManagerScript.instance.ScoreOfCards[i, j] != -1)
+                        int value = ScoreManagerScript.instance.ScoreOfCards.Find(o => o.row == i && o.column == j).value;
+                        if (value != playerIndex && value != -1)
                         {
                             MatrixOfCards matrixOfCard = CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(o => o.row == i && o.column == j);
                             if (!PossibleCardsForJacks.Contains(matrixOfCard))
@@ -320,17 +385,18 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+            Debug.Log(PossibleCardsForJacks.Count);
         }
         else if (name == "JackofClubs" || name == "JackofDiamonds")
         {
             JackCardName = "two eyed-" + name;
             //two eyed jack
             Debug.Log("two eyed jack");
-            for (int i = 0; i < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(0) + 1; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < ScoreManagerScript.instance.ScoreOfCards.GetUpperBound(1) + 1; j++)
+                for (int j = 0; j < 10; j++)
                 {
-                    if ((i == 0 && j == 0) || (i == 0 && j == 9) || (i == 9 && j == 0) || (i == 9 && j == 9) || ScoreManagerScript.instance.ScoreOfCards[i, j] == playerIndex)
+                    if ((i == 0 && j == 0) || (i == 0 && j == 9) || (i == 9 && j == 0) || (i == 9 && j == 9) || ScoreManagerScript.instance.ScoreOfCards.Find(o => o.row == i && o.column == j).value == playerIndex)
                     { }
                     else
                     {
@@ -342,6 +408,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+            Debug.Log(PossibleCardsForJacks.Count);
         }
         else if (name != "all")
         {
@@ -355,7 +422,7 @@ public class Player : MonoBehaviour
             // Debug.Log(name + cards);
             foreach (var item in matrixOfCards)
             {
-                if (ScoreManagerScript.instance.ScoreOfCards[item.row, item.column] == -1)
+                if (ScoreManagerScript.instance.ScoreOfCards.Find(o => o.row == item.row && o.column == item.column).value == -1)
                     tempCount++;
             }
             foreach (GameObject item in cards)
@@ -411,9 +478,10 @@ public class Player : MonoBehaviour
         if (playerIndex == index)
         {
             Debug.Log("start game Player");
+            manageChip = transform.GetComponentInChildren<ManageChip>();
             chipTag = GetComponentInChildren<ManageChip>().getchipTag();
             Play = StartCoroutine(play());
-            RaycastToCards = StartCoroutine(RaycastForCards());
+            RaycastToCards = StartCoroutine("RaycastForCards");
         }
         else
         {
@@ -427,8 +495,9 @@ public class Player : MonoBehaviour
             StopCoroutine(Play);
         // if (selectedChip != null)
         //     selectedChip.GetComponent<Chip>().putChip = false;
-        if (RaycastToCards != null)
-            StopCoroutine(RaycastToCards);
+        // if (RaycastToCards != null)
+        //StopCoroutine(RaycastToCards);
+        StopCoroutine("RaycastForCards");
     }
     public void ShowCards()
     {

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1309694150070463150}
   - component: {fileID: -4411897323464979771}
   - component: {fileID: 5720479343563542296}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Black Chip
   m_TagString: Chips
   m_Icon: {fileID: 0}

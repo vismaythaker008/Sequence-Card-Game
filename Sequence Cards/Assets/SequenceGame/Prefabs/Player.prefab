@@ -103,10 +103,15 @@ MonoBehaviour:
   - {fileID: 8677289218394372404}
   - {fileID: 8677289217939766341}
   - {fileID: 8677289216886385062}
-  Cards: []
+  Speed: 9
+  PossibleCardsForJacks: []
   selectedChip: {fileID: 0}
+  MatrixOfOwnCards: []
   CardCount: 0
   TotalCardCount: 0
+  playerIndex: 0
+  chipTag: 
+  JackCardName: 
 --- !u!1 &8677289216886385061
 GameObject:
   m_ObjectHideFlags: 0
