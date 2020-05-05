@@ -8,6 +8,7 @@ using SequenceCardGame;
 public class ScoreManagerScript : MonoBehaviour
 {
     public static ScoreManagerScript instance;
+    public Dictionary<int, int> SequenceInfo = new Dictionary<int, int>();
     public GameObject LinePrefab;
 
     // public int[,] ScoreOfCards;
@@ -42,6 +43,13 @@ public class ScoreManagerScript : MonoBehaviour
             }
         }
     }
+    public void setUpScoreInfo(int PlayerCount)
+    {
+        for (int i = 0; i < PlayerCount; i++)
+        {
+            SequenceInfo.Add(i, 0);
+        }
+    }
     public void CheckScore()
     {
         for (int i = 0; i < GameManagerScript.instance.PlayerCount; i++)
@@ -56,16 +64,35 @@ public class ScoreManagerScript : MonoBehaviour
                 Debug.Log("row " + solutionInfo.data[j].row);
                 Debug.Log("column " + solutionInfo.data[j].column);
                 positionsForLine.Add((CardsManagerScript.instance.ListOfGridMatrixOfTotalDisplayCards.Find(o => o.row == solutionInfo.data[j].row && o.column == solutionInfo.data[j].column).Card.transform.position));
+                Debug.Log(positionsForLine[j]);
             }
-            if (solutionInfo.length == 5)
+            if (solutionInfo.length >= 5)
             {
-                LineRenderer lineRenderer = Instantiate(LinePrefab, transform).GetComponent<LineRenderer>();
-                lineRenderer.SetPositions(positionsForLine.ToArray());
+                LineRenderer lineRenderer = Instantiate(LinePrefab, new Vector3(0, 1, 0), Quaternion.identity, transform).GetComponent<LineRenderer>();
+                lineRenderer.positionCount = 5;
+                for (int p = 0; p < 5; p++)
+                {
+                    lineRenderer.SetPosition(p, positionsForLine[p]);
+                }
+                // lineRenderer.SetPositions(positionsForLine.GetRange(0, 5).ToArray());
+                SequenceInfo[GameManagerScript.instance.curentPlayerIndex]++;
+
             }
-            else if (solutionInfo.length >= 5)
+            else if (solutionInfo.length == 5)
             {
-                LineRenderer lineRenderer = Instantiate(LinePrefab, transform).GetComponent<LineRenderer>();
-                lineRenderer.SetPositions(positionsForLine.GetRange(0, 5).ToArray());
+                LineRenderer lineRenderer = Instantiate(LinePrefab, new Vector3(0, 1, 0), Quaternion.identity, transform).GetComponent<LineRenderer>();
+                lineRenderer.positionCount = 5;
+                for (int p = 0; p < positionsForLine.Count; p++)
+                {
+                    lineRenderer.SetPosition(p, positionsForLine[p]);
+                }
+
+                // lineRenderer.SetPositions(positionsForLine.ToArray());
+                SequenceInfo[GameManagerScript.instance.curentPlayerIndex]++;
+            }
+            if (SequenceInfo[GameManagerScript.instance.curentPlayerIndex] == 2)
+            {
+                Debug.Log("player with index " + GameManagerScript.instance.curentPlayerIndex + " wins");
             }
 
         }

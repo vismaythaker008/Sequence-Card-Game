@@ -10,7 +10,7 @@ public class ChipsManager : MonoBehaviour
     public GameObject[] ChipSelectionMenu;
 
     public List<Chips> ChipsPrefabList;
-    public Chips currentChip;
+
     private int PlayerCount;
     void Start()
     {
@@ -22,8 +22,8 @@ public class ChipsManager : MonoBehaviour
     }
     public void setCurrentChip(string name)
     {
-        currentChip = ChipsPrefabList.Find(x => x.name == name);
-        currentChip.setOccupied();
+        // currentChip = ChipsPrefabList.Find(x => x.name == name);
+        // currentChip.setOccupied();
         foreach (GameObject item in ChipSelectionMenu)
         {
             Rotate rotate = item.GetComponent<Rotate>();
@@ -39,21 +39,18 @@ public class ChipsManager : MonoBehaviour
     public GameObject assignChip()
     {
         bool chipNotFound = true;
+        Chips chip = null;
         while (chipNotFound)
         {
-            Chips chip = ChipsPrefabList[Random.Range(0, ChipsPrefabList.Count)];
-            if (chip.Prefab != currentChip.Prefab)
-            {
-                chip.setOccupied();
-                return chip.Prefab;
-            }
+            chip = ChipsPrefabList[Random.Range(0, ChipsPrefabList.Count)];
+
             if (!chip.checkOccupied())
             {
                 chip.setOccupied();
-                return chip.Prefab;
+                chipNotFound = false;
             }
         }
-        return null;
+        return chip.Prefab;
 
     }
 }

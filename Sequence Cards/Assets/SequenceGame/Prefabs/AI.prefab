@@ -89,9 +89,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cards: []
+  Speed: 8
   selectedChip: {fileID: 0}
-  GridMatrixOfTotalDisplayCards: []
   MatrixOfOwnCards: []
   MatrixOfUsedCards: []
   CardCount: 0
   TotalCardCount: 0
+  playerIndex: 0

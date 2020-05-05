@@ -23,7 +23,7 @@ public class Rotate : MonoBehaviour
     {
         if (!selected)
         {
-            lastRoutine = StartCoroutine(rotate());
+            // lastRoutine = StartCoroutine(rotate());
             selected = true;
         }
     }
@@ -32,15 +32,15 @@ public class Rotate : MonoBehaviour
         StopCoroutine(lastRoutine);
         selected = false;
     }
-    IEnumerator rotate()
-    {
-        while (true)
-        {
+    // IEnumerator rotate()
+    // {
+    //     while (true)
+    //     {
 
-            rotation.y += 10;
-            // transform.Rotate(Vector3.left * 10, Space.Self);
-            transform.eulerAngles = rotation;
-            yield return new WaitForSeconds(0.05f);
-        }
-    }
+    //         rotation.y += 10;
+    //         // transform.Rotate(Vector3.left * 10, Space.Self);
+    //         transform.eulerAngles = rotation;
+    //         yield return new WaitForSeconds(0.05f);
+    //     }
+    // }
 }

@@ -129,7 +129,8 @@ public class GameplayUI : ScreenView
             // Yield here
             yield return null;
         }
-        yield return null;
+        GameManagerScript.instance.endRound();
+
     }
     public void OnGameModeChange(GameMode currentMode)
     {

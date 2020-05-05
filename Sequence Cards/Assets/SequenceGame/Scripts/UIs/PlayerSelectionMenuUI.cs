@@ -13,7 +13,6 @@ public class PlayerSelectionMenuUI : ScreenView
     private void OnEnable()
     {
         GameStateManager.onGameStateChange += OnGameStateChange;
-
     }
     private void OnDisable()
     {
@@ -22,12 +21,12 @@ public class PlayerSelectionMenuUI : ScreenView
     public override void Show()
     {
         base.Show();
-        showChipsMenu();
+        // showChipsMenu();
     }
     public override void Hide()
     {
         base.Hide();
-        hideChipsMenu();
+        // hideChipsMenu();
     }
     public void showChipsMenu()
     {

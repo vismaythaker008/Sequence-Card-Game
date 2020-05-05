@@ -64,7 +64,7 @@ public class BoxScript : MonoBehaviour
         {
             case "Play VS AI":
                 animator.SetTrigger(ConstantString.BoxTopClose);
-                WaitAsync(1200, () =>
+                Utilities.WaitAsync(1200, () =>
                     {
                         GetComponentInChildren<SelectionMenuUI>().OnModeBtnClk(mode);
                         PlayBoxOpenanimation();
@@ -72,7 +72,7 @@ public class BoxScript : MonoBehaviour
                 break;
             case "Go Back":
                 animator.SetTrigger(ConstantString.BoxTopClose);
-                WaitAsync(1200, () =>
+                Utilities.WaitAsync(1200, () =>
                     {
                         GetComponentInChildren<PlayerSelectionMenuUI>().OnBackBtnClk();
                         PlayBoxOpenanimation();
@@ -83,24 +83,7 @@ public class BoxScript : MonoBehaviour
 
     }
 
-    IEnumerator Wait(float seconds, Action actiontoperform)
-    {
-        yield return new WaitForSeconds(seconds);
 
-        if (actiontoperform != null)
-        {
-            actiontoperform();
-        }
 
-    }
 
-    async void WaitAsync(int delayinms, Action actiontoperform)
-    {
-        await Task.Delay(delayinms);
-
-        if (actiontoperform != null)
-        {
-            actiontoperform();
-        }
-    }
 }

@@ -103,7 +103,7 @@ MonoBehaviour:
   - {fileID: 8677289218394372404}
   - {fileID: 8677289217939766341}
   - {fileID: 8677289216886385062}
-  Speed: 9
+  Speed: 7
   PossibleCardsForJacks: []
   selectedChip: {fileID: 0}
   MatrixOfOwnCards: []

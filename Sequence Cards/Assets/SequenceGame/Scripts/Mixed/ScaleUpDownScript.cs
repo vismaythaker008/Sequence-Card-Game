@@ -14,13 +14,26 @@ public class ScaleUpDownScript : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
-    void Start()
+    void Awake()
     {
         text = transform.GetComponent<TextMeshProUGUI>();
+        Debug.Log(text);
+
+    }
+
+
+    void OnEnable()
+    {
         StartCoroutine(ScaleUpDown());
+    }
+
+    void OnDisable()
+    {
+        StopCoroutine(ScaleUpDown());
     }
     IEnumerator ScaleUpDown()
     {
+
         while (true)
         {
             while (elapsedTime < waitTime)
@@ -42,6 +55,7 @@ public class ScaleUpDownScript : MonoBehaviour
                 // Yield here
                 yield return null;
             }
+
             elapsedTime = 0;
             text.fontSize = 110;
             yield return null;

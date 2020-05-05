@@ -11,10 +11,10 @@ public class GameManagerScript : MonoBehaviour
     public GameplayUI gameplayUI;
     public GameObject CardsLeft;
     public GameObject CardsRight;
-    public float Timer = 60f;
+
     public int PlayerCount;
     // public
-    private Coroutine PlayGame;
+
     public GameObject[] Players;
     public GameObject playerPrefab;
     public GameObject AIPrefab;
@@ -27,7 +27,7 @@ public class GameManagerScript : MonoBehaviour
 
     private string[] chipTags = { ConstantString.TagForPlayingChipsTeam1, ConstantString.TagForPlayingChipsTeam2, ConstantString.TagForPlayingChipsTeam3 };
     private int startingPlayerIndex = -1;
-
+    private int turn = 0;
 
     void Awake()
     {
@@ -37,60 +37,62 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
 
-        /*AudioManager.instance.Play("Background Music");*/
+        AudioManager.instance.Play("BG Music");
 
     }
 
-    IEnumerator play()
+    void play()
     {
-        while (true)
-        {
-            for (int i = 0; i < PlayerCount; i++)
-            {
-                if (startingPlayerIndex != -1)
-                {
-                    i = startingPlayerIndex;
-                    startingPlayerIndex = -1;
-                }
-                curentPlayerIndex = i;
-                TurnChanged(i);
-                ShowTurnImage(i);
-
-                while (Timer > 0.0f)
-                {
-
-                    Timer -= Time.deltaTime;
-                    yield return null;
-                }
-
-                ScoreManagerScript.instance.CheckScore();
-                Timer = 60f;
-            }
-            yield return null;
-        }
+        curentPlayerIndex = turn;
+        if (TurnChanged != null)
+            TurnChanged(turn);
+        if (ShowTurnImage != null)
+            ShowTurnImage(turn);
     }
+
+
+
     public void endRound()
     {
+        Debug.Log("end Round");
+        ScoreManagerScript.instance.CheckScore();
 
-        Timer = 0;
-
+        if (turn < PlayerCount)
+        {
+            turn++;
+        }
+        if (turn == PlayerCount)
+        {
+            turn = 0;
+        }
+        play();
     }
 
     public void startGame()
     {
         startingPlayerIndex = Random.Range(0, PlayerCount);
         Debug.Log("startingPlayerIndex : " + startingPlayerIndex);
-        Utilities.WaitAsync(1200, () => { PlayGame = StartCoroutine(play()); });
+        Utilities.WaitAsync(1200, () =>
+        {
+
+            if (startingPlayerIndex != -1)
+            {
+                turn = startingPlayerIndex;
+                startingPlayerIndex = -1;
+            }
+            play();
+        });
 
     }
     public void endGame()
     {
 
-        StopCoroutine(PlayGame);
+
     }
     public void setPlayerCount(int count)
     {
         PlayerCount = count;
+        ScoreManagerScript.instance.setUpScoreInfo(count);
         // Debug.Log("123");
         ChipsManager.instance.setPlayerCount(count);
         createPlayers(PlayerCount);

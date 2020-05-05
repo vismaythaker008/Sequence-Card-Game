@@ -5,18 +5,19 @@ using UnityEngine;
 public class ManageChip : MonoBehaviour
 {
     public int chipCount = 0;
-    private int totalChipCount;
+    public GameObject ChipPrefab;
+    public int totalChipCount;
     private string tagForChip;
     private int uniqueIndex = 0;
     private int chipChildIndex = -1;
 
-    void Start()
-    {
-        totalChipCount = ChipsManager.instance.TotalChipCount;
-    }
+
     public void callManageChips()
     {
-        StartCoroutine(ManageChips());
+
+        totalChipCount = ChipsManager.instance.TotalChipCount;
+        Debug.Log("call manage chips");
+        ManageChips();
     }
     public void setchipTag(string chiptag)
     {
@@ -29,38 +30,31 @@ public class ManageChip : MonoBehaviour
     public GameObject getChip()
     {
         chipChildIndex++;
-        chipCount--;
+        createChip();
         return transform.GetChild(chipChildIndex).gameObject;
     }
-    IEnumerator ManageChips()
+    void ManageChips()
     {
-        GameObject Chip;
-        if (transform.name == "Chips Player")
+        Debug.Log(chipCount);
+        Debug.Log(totalChipCount);
+        ChipPrefab = ChipsManager.instance.assignChip();
+        Utilities.WaitAsync(2500, () =>
         {
-            if (ChipsManager.instance.currentChip.Prefab == null)
+            while (chipCount < totalChipCount)
             {
-                // Debug.Log("hello");
-                Chip = ChipsManager.instance.assignChip();
+                Debug.Log("createChip");
+                createChip();
             }
-            else
-                Chip = ChipsManager.instance.currentChip.Prefab;
-        }
-        else
-        {
-            Chip = ChipsManager.instance.assignChip();
-        }
-        while (true)
-        {
-            if (chipCount < totalChipCount)
-            {
-                GameObject chip = Instantiate(Chip, transform.position, Quaternion.identity, transform);
-                chip.tag = tagForChip;
-                chip.name = Chip.name + uniqueIndex;
-                uniqueIndex++;
-                chipCount++;
-            }
-            yield return new WaitForSeconds(0.3f);
-        }
+
+        });
+    }
+    void createChip()
+    {
+        GameObject chip = Instantiate(ChipPrefab, transform.position, Quaternion.identity, transform);
+        chip.tag = tagForChip;
+        chip.name = ChipPrefab.name + uniqueIndex;
+        uniqueIndex++;
+        chipCount++;
 
     }
 
